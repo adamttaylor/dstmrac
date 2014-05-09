@@ -89,7 +89,20 @@ function wpml_t($context, $name, $original_value){
 #	String Registration
 #
 wpml_register_string( THEMESLUG , 'Footer Copyright Text', stripslashes(get_option(THEMESLUG.'_footer_copy')));
-wpml_register_string( THEMESLUG , 'Breadcrumb Menu Text',  get_option(THEMESLUG.'_breadcrumb_text'));
+wpml_register_string( THEMESLUG , 'Breadcrumb Menu Text',  get_option(THEMESLUG.'_breadcrumb_text')); 
+wpml_register_string( THEMESLUG , 'Contact - Map Code', stripslashes(get_option(THEMESLUG.'_map_code')));
+wpml_register_string( THEMESLUG , 'Contact - Title', stripslashes(get_option(THEMESLUG.'_contact_title')));
+wpml_register_string( THEMESLUG , 'Contact - Text', stripslashes(get_option(THEMESLUG.'_contact_text')));
+wpml_register_string( THEMESLUG , 'Contact - Address', stripslashes(get_option(THEMESLUG.'_address')));
+wpml_register_string( THEMESLUG , 'Contact - Phone', stripslashes(get_option(THEMESLUG.'_phone')));
+wpml_register_string( THEMESLUG , 'Contact - Email', stripslashes(get_option(THEMESLUG.'_email_contact')));
+wpml_register_string( THEMESLUG , 'Contact - Support Email', stripslashes(get_option(THEMESLUG.'_support_email')));
+wpml_register_string( THEMESLUG , 'Contact - Fax', stripslashes(get_option(THEMESLUG.'_fax')));
+wpml_register_string( THEMESLUG , 'Contact - Link for Map', stripslashes(get_option(THEMESLUG.'_link_for_map')));
+wpml_register_string( THEMESLUG , 'Contact - Contact Form Title', stripslashes(get_option(THEMESLUG.'_contact_form_title')));
+wpml_register_string( THEMESLUG , 'Contact - Contact Form Email', stripslashes(get_option(THEMESLUG.'_contact_email'))); 
+ 
+
 
 
 ?>

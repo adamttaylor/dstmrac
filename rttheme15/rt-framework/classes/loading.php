@@ -105,6 +105,7 @@ class RTTheme{
 				"Lekton" => array("Lekton","Lekton"),
 				"UnifrakturMaguntia" => array("UnifrakturMaguntia","UnifrakturMaguntia"),
 				"Oswald&v1" => array("Oswald","Oswald"),
+				"Oswald&subset=latin,latin-ext" => array("Oswald","Oswald Latin Extended"),
 				"League+Script" => array("League Script","League Script"),
 				"Orbitron" => array("Orbitron","Orbitron"),
 				"Cuprum" => array("Cuprum","Cuprum"),
@@ -192,7 +193,7 @@ class RTTheme{
 	//Available Social Media Icons
 	public $social_media_icons=array(
 				"RSS" 		=> "rss",
-				"Email" 		=> "email_icon",
+				"Email" 		=> "email",
 				"Twitter"		=> "twitter",
 				"Flickr" 		=> "flickr",
 				"Facebook" 	=> "facebook", 
@@ -223,7 +224,8 @@ class RTTheme{
 				"Technorati" 	=> "technorati", 
 				"Vimeo" 		=> "vimeo",
 				"Yahoo" 		=> "yahoo",
-				"YouTube" 	=> "youtube"
+				"YouTube" 	=> "youtube",
+				"Pinterest" 	=> "pinterest"
 				);
 				
 
@@ -237,7 +239,7 @@ class RTTheme{
 
  
 		// Load text domain
-		load_theme_textdomain('rt_theme', TEMPLATEPATH.'/languages' );
+		load_theme_textdomain('rt_theme', get_template_directory().'/languages' );
 
 		//Call Theme Constants
 		$this->theme_constants($v);	  
@@ -308,6 +310,7 @@ class RTTheme{
 		define('BLOGPAGE', get_option('rttheme_blog_page'));
 		define('PRODUCTPAGE', get_option('rttheme_product_list'));
 		define('PORTFOLIOTPAGE', get_option('rttheme_portf_page'));
+		define('MEMBERTPAGE', get_option('rttheme_memberf_page'));
 		define('CONTACTPAGE', get_option('rttheme_contact_page'));
 		define('THEMESTYLE', get_option(THEMESLUG."_style"));
 
@@ -330,6 +333,12 @@ class RTTheme{
 		include(THEMEFRAMEWORKDIR . "/functions/rt_shortcodes.php");		
 		include(THEMEFRAMEWORKDIR . "/functions/wpml_functions.php");
 		include(THEMEFRAMEWORKDIR . "/plugins/vt_resize.php");		
+		include(THEMEFRAMEWORKDIR . "/functions/custom_styling.php");
+
+		if(!function_exists('dropdown_menu')){		
+			include(THEMEFRAMEWORKDIR . "/plugins/dropdown-menus.php");
+		}
+				
 	}
 
 	#
@@ -341,9 +350,12 @@ class RTTheme{
 		//Create Sidebars
 		include(THEMEFRAMEWORKDIR . "/classes/sidebar_creator.php");  
 		$createSidebars = new RT_Create_Sidebars(); 
-		
+
+		//is login or register page		
+		$is_login = in_array( $GLOBALS['pagenow'], array( 'wp-login.php', 'wp-register.php' ));
+
 		//Theme
-		if(!is_admin()){			
+		if(!is_admin() && !$is_login){			
 			require_once (THEMEFRAMEWORKDIR.'/classes/theme.php'); 
 			$RTThemeSite = new RTThemeSite();
 			$RTThemeSite -> theme_init();
@@ -355,11 +367,7 @@ class RTTheme{
 	#
     
 	function load_widgets($v) {
-		 
-		//twitter
-		include(THEMEFRAMEWORKDIR . "/widgets/twitter.php");		
-		register_widget('Twitter_Widget');
-
+		  
 		//flickr
 		include(THEMEFRAMEWORKDIR . "/widgets/flickr.php");		
 		register_widget('Flickr_Widget');
@@ -370,8 +378,11 @@ class RTTheme{
 
 		//recent posts
 		include(THEMEFRAMEWORKDIR . "/widgets/latest_posts_2.php");		
-		register_widget('Latest_Posts_2');
+		register_widget('Latest_Posts_2'); 
 		
+		//recent posts
+		include(THEMEFRAMEWORKDIR . "/widgets/latest_posts_wide.php");		
+		register_widget('Latest_Posts_wide'); 
 
 		//popular posts
 		include(THEMEFRAMEWORKDIR . "/widgets/popular_posts.php");		
@@ -385,7 +396,7 @@ class RTTheme{
 		include(THEMEFRAMEWORKDIR . "/widgets/testimonials.php");		
 		register_widget('Testimonials');
 
-		//testimonials
+		//Recent Posts Gallery
 		include(THEMEFRAMEWORKDIR . "/widgets/recent_posts_gallery.php");		
 		register_widget('Recent_Posts_Gallery');				
 	}
@@ -428,8 +439,8 @@ class RTTheme{
 		register_nav_menu( 'rt-theme-main-navigation', __( 'RT Theme Main Navigation' , 'rt_theme_admin') ); 
 		register_nav_menu( 'rt-theme-footer-navigation', __( 'RT Theme Footer Navigation' , 'rt_theme_admin' ));
 
-		wp_create_nav_menu( 'RT Theme Main Navigation Menu', array( 'slug' => 'rt-theme-main-menu' ) );
-		wp_create_nav_menu( 'RT Theme Footer Navigation Menu', array( 'slug' => 'rt-theme-footer-menu') );
+		wp_create_nav_menu( 'RT Theme Main Navigation Menu', array( 'slug' => 'rt-theme-main-navigation' ) );
+		wp_create_nav_menu( 'RT Theme Footer Navigation Menu', array( 'slug' => 'rt-theme-footer-navigation') );
 		
 	}
 
@@ -439,10 +450,10 @@ class RTTheme{
 	 
 	function theme_supports(){
 		//Featured Images
-		add_theme_support( 'post-thumbnails', array( 'post','slider','home_page') );
+		add_theme_support( 'post-thumbnails', array( 'post','slider','home_page','page') );
 		
 		//Custom background support
-		add_custom_background();
+		add_theme_support( 'custom-background' );
 		
 		//Automatic Feed Links
 		add_theme_support( 'automatic-feed-links' );

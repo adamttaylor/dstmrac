@@ -66,20 +66,22 @@ class RTThemeAdmin extends RTTheme{
 	#
 		// Adds an update notification to the WordPress Dashboard menu
 		function update_notifier_menu() {  
-			global $xml,$theme_data;
-			
-			$xml = get_latest_theme_version(NOTIFIER_CACHE_INTERVAL); // Get the latest remote XML file on our server
-			$theme_data = get_theme_data(TEMPLATEPATH . '/style.css'); // Read theme current version from the style.css
+			global $xml,$theme_data,$themeupdatestatus;
+				$themeupdatestatus = get_option(THEMESLUG.'_update_notifications');
+				$update = "";
 				
-				if( (float)$xml->latest > (float)$theme_data['Version']) { // Compare current theme version with the remote XML version
-					$update = '<span class="update-plugins count-1"><span class="update-count">'.$xml->latest.'</span></span>';
+				if($themeupdatestatus){
+					$xml 		= get_latest_theme_version(NOTIFIER_CACHE_INTERVAL); // Get the latest remote XML file on our server
+					$theme_data	= wp_get_theme(); // Read theme current version from the style.css
+					
+					if( (float)$xml->latest > (float)$theme_data['Version']) { // Compare current theme version with the remote XML version
+						$update = '<span class="update-plugins count-1"><span class="update-count">'.$xml->latest.'</span></span>';
+					}
 				}
-
-				 
-				$k = array('update_notifications' => 'Theme Updates ' .@$update);
-				array_merge($this->panel_pages, $k);
-				$this->panel_pages = array_merge($this->panel_pages, $k);
-			 
+					 
+					$k = array('update_notifications' => __("Theme Updates ",'rt_theme_admin') .@$update);
+					array_merge($this->panel_pages, $k);
+					$this->panel_pages = array_merge($this->panel_pages, $k);
 		}
 		
 		
@@ -183,16 +185,17 @@ class RTThemeAdmin extends RTTheme{
 		
 		foreach ($options as $value) { 
 
-		$id=@$value['id'];
+		$id= isset( $value['id'] ) ? $value['id'] : "";
 		$id_array=str_replace("[]","", $id);
 
-			if(@is_array($_REQUEST[$id_array])){ 
-				$request_value=@serialize($_REQUEST[ $id_array ]); 
+			if( isset( $_REQUEST[$id_array] ) && is_array( $_REQUEST[$id_array] ) ){ 
+				$request_value=serialize( $_REQUEST[ $id_array ] ); 
 			}else{
-				$request_value=@stripslashes($_REQUEST[ $id ]) ;
+
+				$request_value= isset( $_REQUEST[ $id ] ) ? stripslashes( $_REQUEST[ $id ] ) : "";
 			}
 
-			if( @isset( $request_value ) &&  ( ( $request_value != @$value['default'] ) || (@!$value['dont_save']) ) ) {
+			if( @isset( $request_value ) &&  ( ( isset($value['default']) && $request_value != $value['default'] ) || ( !isset($value['dont_save']) ) ) ) {
 				update_option( $id, $request_value );
 			}else{
 				update_option( $id, '' );
@@ -239,7 +242,7 @@ class RTThemeAdmin extends RTTheme{
 	#
 	
 	function rt_get_theme_version(){
-		$theme_data = get_theme_data(THEMEDIR . '/style.css');  
+		$theme_data = wp_get_theme();  
 		return $this->version = $theme_data['Version'];
 	}
 
@@ -401,14 +404,19 @@ FOOTER;
 	
 		foreach($options as $k => $v){
 			
-			
 			$id 			=  (!empty($v['id'])) ? $v['id'] : "";
-			$desc 		=  (!empty($v['desc'])) ? $v['desc'] : "";
+			$name 			=  (!empty($v['name'])) ? $v['name'] : "";
+			$desc 			=  (!empty($v['desc'])) ? $v['desc'] : "";
 			$purpose 		=  (!empty($v['purpose'])) ? $v['purpose'] : "";
-			$class 		=  (!empty($v['class'])) ? $v['class'] : "";
+			$class 			=  (!empty($v['class'])) ? $v['class'] : "";
 			$fontSystem 	=  (!empty($v['font-system'])) ? $v['font-system'] : "";
 			$hr 			=  (!empty($v['hr'])) ? $v['hr'] : "";
-			
+			$purpose 		=  (!empty($v['purpose'])) ? $v['purpose'] : "";
+			$content_type	=  (!empty($v['content_type'])) ? $v['content_type'] : "";
+			$select			=  (!empty($v['select'])) ? $v['select'] : "";
+			$field_value 	= get_option($id);			
+
+
 			$field_value = get_option($id);
 			
 			//help
@@ -429,7 +437,15 @@ FOOTER;
 			}		
 			
 			switch ($v['type']){
-			
+				#
+				#	Info
+				#
+				case 'info';			
+					
+				echo '<div class="info">'.$desc.'</div>'; 		
+				
+				break;
+							
 				#
 				#	Headings
 				#
@@ -572,32 +588,41 @@ FOOTER;
 				
 				//font demo
 				$fontDemo 	=  (!empty($v['font-demo'])) ? $v['font-demo'] : "";
+
 				
 				if(!empty($fontDemo)){
+				//font-family name
+				$font_family_name = isset($this->google_fonts[$field_value][0]) ? $this->google_fonts[$field_value][0] : "";					
 				echo '    <tr>';
 				echo '	<td class="col1" colspan="2">';
-				echo '	<iframe scrolling="no" id="'.$v['id'].'_iframe" class="fontdemo" src="'.THEMEADMINURI.'/pages/rt-fonts.php?font='.$field_value.'&system='.$v['font-system'].'&font_face='.$this->google_fonts[$field_value][0].'">Your browser does not support iframes.</iframe>';
+				echo '	<iframe scrolling="no" id="'.$v['id'].'_iframe" class="fontdemo" src="'.THEMEADMINURI.'/pages/rt-fonts.php?font='.$field_value.'&system='.$v['font-system'].'&family_name='.$font_family_name.'">Your browser does not support iframes.</iframe>';
 				echo '	</td>';
 				echo '    </tr>';
 				} 
+
+				$extraClass  =  (!empty($v['sidebuttonName'])) ? "withbutton": '';
 	
 				echo '    <tr>';
 				echo '	<td class="col2"><div class="form_element">';
-				echo '	<select name="'.$v['id'].'" id="'.$v['id'].'" class="'.$class.' '.$fontSystem.'">';
+				echo '	<select name="'.$v['id'].'" id="'.$v['id'].'" class="'.$class.' '.$fontSystem.' '. $extraClass .' ">';
 					
-					if($v['select']) echo '<option value="">'.$v['select'].'</option>';
+					if($select) echo '<option value="">'.$select.'</option>';
 					    
-					foreach($v['options'] as $option_value => $option_name){					
+					foreach($v['options'] as $option_value => $option_name){	 
 						//if array
 						if(is_array($option_name)){
 							$option_name = $option_name[1];
+							//font-family name
+							$font_family_name = isset($this->google_fonts[$option_value][0]) ? $this->google_fonts[$option_value][0] : ""; 
+						}else{
+							$font_family_name = "";
 						}
 			
 					    if ($field_value==$option_value){
-						echo '<option value="'.$option_value.'" selected>'.$option_name.'</option>';
+						echo '<option value="'.$option_value.'" class="'.$font_family_name.'__" selected>'.$option_name.'</option>';
 					    }else{
-						echo '<option value="'.$option_value.'">'.$option_name.'</option>';
-					    }
+						echo '<option value="'.$option_value.'" class="'.$font_family_name.'___" >'.$option_name.'</option>';
+					    } 
 					} 
 					    
 				echo '	</select>';
@@ -613,6 +638,7 @@ FOOTER;
 				#	Multiple Select
 				#
 				case 'selectmultiple';
+				$selected = "";
 				
 				echo '<table>';
 				echo '    <tr>';
@@ -634,8 +660,8 @@ FOOTER;
 					if(!is_array($saved_array)) $saved_array = unserialize($field_value);	
 				}
 				 
-				if($v['select']) {
-					echo '<select multiple name="'.$v['id'].'" id="'.$v['id'].'" class="multiple '.$class.' '.$fontSystem.'"  title="'.$v['select'].'">';  
+				if($select) {
+					echo '<select multiple name="'.$v['id'].'" id="'.$v['id'].'" class="multiple '.$class.' '.$fontSystem.'"  title="'.$select.'">';  
 				}else{
 					echo '<select multiple name="'.$v['id'].'" id="'.$v['id'].'" class="multiple '.$class.' '.$fontSystem.'"  title="'.__('Select','rt_theme_admin').'">';
 				}
@@ -733,8 +759,7 @@ FOOTER;
 				echo $help;
 				echo '    </tr>';
 				echo '</table>';
-				
-				$this ->color_picker($v['id'],@$v['value']);
+							 
 				 
 				break;
 	

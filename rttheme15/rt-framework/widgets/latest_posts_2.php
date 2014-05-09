@@ -46,7 +46,7 @@ class Latest_Posts_2 extends WP_Widget {
 			$rt_posts .= ($show_excerpt) ? ''.wp_html_excerpt(get_the_excerpt(),$limit).'...' : "" ;
 			$rt_posts .='</li></ul>';
 
-		endwhile;endif;wp_reset_query();
+		endwhile;endif;
 		$rt_posts .= '</div>';
 
 		echo $before_widget;
@@ -71,13 +71,13 @@ class Latest_Posts_2 extends WP_Widget {
 	}
 
 	function form( $instance ) {
-		$title 			= 	isset($instance['title']) ? esc_attr($instance['title']) : '';
+		$title 				= 	isset($instance['title']) ? esc_attr($instance['title']) : '';
 		$categories 		=	isset($instance['categories']) ? $instance['categories'] : array();
-		$newWidget		= 	$instance['newWidget'];
-		$limit			=	empty($instance['limit']) ? 100 : $instance['limit'];
-		$count			=	empty($instance['count']) ? 5 : $instance['count'];
-		$show_thumbnails	=	$instance['show_thumbnails'];
-		$show_excerpt		=	$instance['show_excerpt'];
+		$newWidget			= 	isset($instance['newWidget']) ? $instance['newWidget'] : "";
+		$limit				=	empty($instance['limit']) ? 100 : $instance['limit'];
+		$count				=	empty($instance['count']) ? 5 : $instance['count'];
+		$show_thumbnails	=	isset($instance['show_thumbnails']) ? $instance['show_thumbnails'] : "";
+		$show_excerpt		=	isset($instance['show_excerpt']) ? $instance['show_excerpt']: "";
 		
 		// Categories
 		$rt_getcat = RTTheme::rt_get_categories();

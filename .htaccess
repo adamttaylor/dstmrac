@@ -1,0 +1,19 @@
+
+# BEGIN WordPress
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /dstmrac/
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /dstmrac/index.php [L]
+
+Redirect 301 /dstmrac/event-calendar/ /dstmrac/calender/
+Redirect 301 /dstmrac/community/ /dstmrac/products/
+Redirect 301 /dstmrac/gallery/ /dstmrac/photo-gallery/
+Redirect 301 /event-calendar/ /calender/
+Redirect 301 /community/ /products/
+Redirect 301 /gallery/ /photo-gallery/ 
+</IfModule>
+
+# END WordPress

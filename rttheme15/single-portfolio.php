@@ -27,8 +27,7 @@ if($terms){
 $crop 	= 	get_option('rttheme_portfolio_image_crop');
 
 get_header();
-
-if(current_user_can( 'read_portfolio' )){
+ 
 ?>
 <?php get_template_part( 'sub_page_header', 'sub_page_header_file' );?>
 
@@ -88,7 +87,7 @@ if(current_user_can( 'read_portfolio' )){
 		
 					<?php if($media_link):?></a><?php endif;?>
 				</span>
-				<div class="space"></div>
+				<div class="space v_20"></div>
 				<!-- / portfolio image -->		
 				<?php endif;?>
 		 
@@ -106,8 +105,4 @@ if(current_user_can( 'read_portfolio' )){
 				<p><?php _e( 'Sorry, no page found.', 'rt_theme'); ?></p>
 			<?php endif; ?>
 
-<?php 
-}else{
-	echo '<div>You must be a member to see this page.</div>';	
-}
-get_footer();?> 
+<?php get_footer();?> 

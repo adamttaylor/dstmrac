@@ -215,7 +215,7 @@
 					title : 'RT-Theme Accordion Shortcode',
 					image : url+'/../images/accordion-shortcodes.png',
 					onclick : function() {
-						window.tinyMCE.execInstanceCommand(window.tinyMCE.activeEditor.editorId, 'mceInsertContent', false, '[accordion align=""]<br />[pane title="Accordion Pane 1"] content [/pane] <br />[pane title="Accordion Pane 2"] content [/pane] <br />[pane title="Accordion Pane 3"] content [/pane] <br />[/accordion]<br /><br /> ');
+						window.tinyMCE.execInstanceCommand(window.tinyMCE.activeEditor.editorId, 'mceInsertContent', false, '[accordion align="" first_one_open="true"]<br />[pane title="Accordion Pane 1"] content [/pane] <br />[pane title="Accordion Pane 2"] content [/pane] <br />[pane title="Accordion Pane 3"] content [/pane] <br />[/accordion]<br /><br /> ');
 						window.tinyMCE.activeEditor.execCommand('mceRepaint');
 	
 							jQuery(".rt-message-contact-form").remove();
@@ -225,8 +225,13 @@
 								jQuery(".rt-message-contact-form").html('<div class="updated"><div class="rt-message">X</div>'
 										+ '	<h2 class="rt-message-h2">Shortcode Tips</h2> ' 
 										+ '	<hr class="rt-message-hr" /> '
-										+ '	<p>Put contents into the [pane title="Pane Title"][/pane] breckets.<br /> In order to have left or right aligned accordions you can use "align" parameter. Example: [accordion align="left"]...[/accordion] or [accordion align="right"][/accordion]'
-										+ '	</p></div>');											
+										+ '	<p>Put contents into the [pane title="Pane Title"][/pane] breckets.'
+										+ '	</p>' 
+										+ '	<h4>Parameters of this shortcode</h4> ' 
+										+ '	<ul>	'
+										+ '	<li> <b>first_one_open:</b>(true/false) Set this value "true" to have first accordion item open when page loaded.</li>	'
+										+ '	<li> <b>align:</b> In order to have left or right aligned accordions you can use "align" parameter. Example: [accordion align="left"]...[/accordion] or [accordion align="right"][/accordion]</li>	'
+										+ '	</ul></div>');																	
 							});
 							jQuery(".rt-message-contact-form").fadeIn('slow');
 							 
@@ -262,7 +267,34 @@
 							jQuery(".rt-message-contact-form").fadeIn('slow');
 							 
 					}
-				});			
+				});
+
+			ed.addButton('rt_themeshortcode_13', {
+					title : 'RT-Theme Product Slider / List Shortcode',
+					image : url+'/../images/box.png',
+					onclick : function() {
+						window.tinyMCE.execInstanceCommand(window.tinyMCE.activeEditor.editorId, 'mceInsertContent', false, '[product_slider slider="true" categories="" ids="" columns="4"]<br /><br /> ');
+						window.tinyMCE.activeEditor.execCommand('mceRepaint');
+	
+							jQuery(".rt-message-contact-form").remove();
+							jQuery("#poststuff").prepend('<div class="rt-message-contact-form"></div>');
+	
+							jQuery(".rt-message-contact-form").hide(function() {
+								jQuery(".rt-message-contact-form").html('<div class="updated"><div class="rt-message">X</div>'
+										+ '	<h2 class="rt-message-h2">Shortcode Tips: Product Slider Shortcode</h2> ' 
+										+ '	<hr class="rt-message-hr" /> '
+										+ '	<p class="warning_shortcode">Plese Note! You can only use this shortcode with "1:1 Full Width" Home Page posts or regular pages/posts. Do not try to use it in tabs, sidebar widgets or columns.</p> '
+										+ '	<h4>Parameters of this shortcode</h4> '									 								
+										+ '	<ul>	'
+										+ '	<li> <b>categories:</b> <br /> - Display products by category slugs. <br /> - Multiple values must be seperated by commas like categories="catgory-slug-1, catgory-slug-2"  <br />- You can find product category slugs on <a href="edit-tags.php?taxonomy=product_categories&post_type=products">product categories page</a> </li>	'
+										+ '	<li> <b>ids:</b> <br />- Display products by product id\'s. <br />- Multiple values must be seperated by commas like ids="75,77,123"  <br />- You can find id values of products in "Product ID" column on <a href="edit.php?post_type=products">products</a> page. <br />- If ids value provided the categories value will be ignored.</li>	'
+										+ '	<li> <b>columns:</b> <br />- Default value = 4<br />- Available column layouts 2, 3, 4, 5 </li>'																
+										+ '	</ul></div>');								
+							});
+							jQuery(".rt-message-contact-form").fadeIn('slow');
+							 
+					}
+				});					
 			
 		},
 		createControl : function(n, cm) {

@@ -24,11 +24,13 @@ class Flickr_Widget extends WP_Widget {
 		$randomID			=	'flickr-'.rand(10000, 1000000);
 		
 		
+		wp_enqueue_script('jquery-flickr', THEMEURI  . '/js/jflickrfeed.min.js'); 
+
 		echo $before_widget;
 		if ($title) echo $before_title . $title . $after_title;
 	 
 		echo '<ul id="'.$randomID.'"  class="flickr thumbs"></ul>';		
-		echo '<script type="text/javascript">jQuery("#'.$randomID.'").jflickrfeed({limit: '.$show_image.',qstrings: {id: \''.$flickr_username.'\' }, itemTemplate: \'<li><span class="frame"><a href="{{image_b}}"><img src="{{image_s}}" alt="{{title}}" /></a></span></li>\'});</script>';		
+		echo '<script type="text/javascript">jQuery(window).load(function() {jQuery("#'.$randomID.'").jflickrfeed({limit: '.$show_image.',qstrings: {id: \''.$flickr_username.'\' }, itemTemplate: \'<li><span class="frame"><a href="{{image_b}}"><img src="{{image_s}}" alt="{{title}}" /></a></span></li>\'});});</script>';		
 		echo $after_widget;
 	}
 
@@ -41,9 +43,10 @@ class Flickr_Widget extends WP_Widget {
 	}
 
 	function form( $instance ) {
+
 		$title 			= 	isset($instance['title']) ? esc_attr($instance['title']) : '';
 		$flickr_username 	=	isset($instance['flickr_username']) ? esc_attr($instance['flickr_username']) : '';
-		$show_image		=	Is_Numeric($instance['show_image']) ? absint($instance['show_image']) : 4; 
+		$show_image		=	isset($instance['show_image']) && Is_Numeric($instance['show_image']) ? absint($instance['show_image']) : 4; 
 
 ?>
 		<p><label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Title:', 'rt_theme_admin'); ?></label>

@@ -40,5 +40,11 @@ get_header();
 		<?php get_template_part( 'portfolio_loop', 'portfolio_categories' );?>
 		<!-- End Porfolio Items -->
  
- 
+  <div class="line large"></div>
+        <div class="hp-one">
+			<?php if (function_exists('dynamic_sidebar')){ 	dynamic_sidebar('home-page-contents1');	}?>
+        </div>
+        <div class="hp-two">
+			<?php if (function_exists('dynamic_sidebar')){ 	dynamic_sidebar('home-page-contents');	}?>
+        </div>
 <?php get_footer();?>

@@ -72,13 +72,14 @@ class RTThemeSidebar extends RTThemeAdmin{
 		// costruct saved array		
 		foreach($savedSidebars_IDs as $id){ 
 			
-			//sidebar
-			$sidebar_name 				= $savedSidebars[$id];
-			$sidebar_id 				= str_replace("_sidebar_name", "", $id);
-			$sidebar_pages 			= @$savedSidebars[$sidebar_id.'_pages'];
-			$sidebar_posts 			= @$savedSidebars[$sidebar_id.'_posts'];
-			$sidebar_categories 		= @$savedSidebars[$sidebar_id.'_categories']; 
-			$sidebar_product_categories 	= @$savedSidebars[$sidebar_id.'_productcategories'];		
+			//sidebar 
+			$sidebar_name               = $savedSidebars[$id];
+			$sidebar_id                 = str_replace("_sidebar_name", "", $id);
+			$sidebar_pages              = isset($savedSidebars[$sidebar_id.'_pages']) ? $savedSidebars[$sidebar_id.'_pages'] : "" ;
+			$sidebar_posts              = isset($savedSidebars[$sidebar_id.'_posts']) ? $savedSidebars[$sidebar_id.'_posts'] : "" ;
+			$sidebar_categories         = isset($savedSidebars[$sidebar_id.'_categories']) ? $savedSidebars[$sidebar_id.'_categories'] : "" ;
+			$sidebar_product_categories = isset($savedSidebars[$sidebar_id.'_productcategories']) ? $savedSidebars[$sidebar_id.'_productcategories'] : "" ;	
+			$sidebar_portfolio_categories = isset($savedSidebars[$sidebar_id.'_portfoliocategories']) ? $savedSidebars[$sidebar_id.'_portfoliocategories'] : "" ;	
 
 
 			//sidebar array

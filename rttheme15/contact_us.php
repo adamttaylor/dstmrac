@@ -4,22 +4,22 @@
 */
 
 #
-#	Contact Page Options
-#
-$map_code 			= get_option(THEMESLUG.'_map_code');
-$contact_title			= get_option(THEMESLUG.'_contact_title');
-$contact_text 			= get_option(THEMESLUG.'_contact_text');
-$address 				= get_option(THEMESLUG.'_address');
-$phone 				= get_option(THEMESLUG.'_phone');
-$email 				= get_option(THEMESLUG.'_email');
-$support_email 		= get_option(THEMESLUG.'_support_email');
-$fax 				= get_option(THEMESLUG.'_fax');
-$link_for_map 			= get_option(THEMESLUG.'_link_for_map');
-$contact_form_title 	= get_option(THEMESLUG.'_contact_form_title');
-$contact_email 		= get_option(THEMESLUG.'_contact_email');
+#	Contact Page Options 
+$map_code 				= get_option(THEMESLUG.'_map_code');
+$contact_title			= wpml_t(THEMESLUG, 'Contact - Title', get_option(THEMESLUG.'_contact_title'));
+$contact_text 			= wpml_t(THEMESLUG, 'Contact - Text', get_option(THEMESLUG.'_contact_text'));
+$address 				= wpml_t(THEMESLUG, 'Contact - Address', get_option(THEMESLUG.'_address'));
+$phone 					= wpml_t(THEMESLUG, 'Contact - Phone', get_option(THEMESLUG.'_phone'));
+$email 					= wpml_t(THEMESLUG, 'Contact - Email', get_option(THEMESLUG.'_email_contact'));
+$support_email 			= wpml_t(THEMESLUG, 'Contact - Support Email', get_option(THEMESLUG.'_support_email'));
+$fax 					= wpml_t(THEMESLUG, 'Contact - Fax', get_option(THEMESLUG.'_fax'));
+$link_for_map 			= wpml_t(THEMESLUG, 'Contact - Link for Map', get_option(THEMESLUG.'_link_for_map'));
+$contact_form_title 	= wpml_t(THEMESLUG, 'Contact - Contact Form Title', get_option(THEMESLUG.'_contact_form_title'));
+$contact_email 			= wpml_t(THEMESLUG, 'Contact - Contact Form Email', get_option(THEMESLUG.'_contact_email'));
 $third_party_plugin		= get_option(THEMESLUG.'_third_party_plugin');
 $contact_form_active	= get_option(THEMESLUG.'_contact_form_active');
-$contact_details_active	= get_option(THEMESLUG.'_details_active');
+$contact_details_active	= get_option(THEMESLUG.'_details_active'); 
+
 ?>
 		
 
@@ -52,9 +52,7 @@ $contact_details_active	= get_option(THEMESLUG.'_details_active');
 	
 	<?php
 	if ($contact_form_active && $contact_details_active){
-		echo '</div><div class="box two last">';
-	}elseif (!$contact_details_active && $contact_form_active){
-		echo '<div class="box full first">';
+		echo '</div><div class="box two last">'; 
 	}elseif ($contact_details_active && !$contact_form_active){
 		echo '</div>';
 	}

@@ -89,23 +89,8 @@ msgstr "Şirket web sitesi:"
 
 #. Text in echo
 #: single-products.php:225
-msgid "Donwload Charts"
+msgid "Download Charts"
 msgstr "Grafikleri İndir"
-
-#. Text in echo
-#: single-products.php:226
-msgid "Donwload Excel File"
-msgstr "Excel Belgesini İndir"
-
-#. Text in echo
-#: single-products.php:227
-msgid "Donwload PDF File"
-msgstr "PDF Belgesini İndir"
-
-#. Text in echo
-#: single-products.php:228
-msgid "Donwload Word File"
-msgstr "Word Belgesini İndir"
 
 #. Text in echo
 #: single-products.php:226
@@ -124,8 +109,8 @@ msgstr "Word Belgesini İndir"
 
 #. Text in echo
 #: comments.php:119
-msgid "Email (will not be published)"
-msgstr "E-Posta (yayınlanmayacak)"
+msgid "Email"
+msgstr "E-Posta"
 
 #. Text in function
 #: rt-framework/widgets/recent_posts_gallery.php:1

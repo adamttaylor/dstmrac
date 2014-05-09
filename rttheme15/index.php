@@ -8,9 +8,13 @@ get_header();
 
 	<!-- slider -->
 	<?php if(get_option(THEMESLUG."_slider_active") && is_front_page()){	//if slider active and is front page
-			//Slider selection
-			if(get_option(THEMESLUG.'_home_slider_script')=="" or get_option(THEMESLUG.'_home_slider_script')=="cycle"){
+			//Slider selection 
+			$home_slider_script = get_option(THEMESLUG.'_home_slider_script');
+
+			if($home_slider_script=="" or $home_slider_script=="cycle"){
 				get_template_part( 'slider', 'home_slider' );
+			}elseif($home_slider_script=="flex"){
+				get_template_part( 'flex-slider', 'home_slider' );				
 			}else{
 				get_template_part( 'nivo-slider', 'home_slider' );
 			}
@@ -38,7 +42,13 @@ get_header();
 	    <div class="clear"></div>
 
 		<!-- widgetized home page area -->
-		<?php if (function_exists('dynamic_sidebar')){  dynamic_sidebar('home-page-contents'); } ?>
+         <div class="line large"></div>
+		 <div class="hp-one">
+			<?php if (function_exists('dynamic_sidebar')){ 	dynamic_sidebar('home-page-contents1');	}?>
+        </div>
+        <div class="hp-two">
+			<?php if (function_exists('dynamic_sidebar')){ 	dynamic_sidebar('home-page-contents');	}?>
+        </div>
 		<div class="clear"></div>
 		<!-- / widgetized home page area -->
 		

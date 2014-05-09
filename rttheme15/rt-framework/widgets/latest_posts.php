@@ -36,12 +36,12 @@ class Latest_Posts extends WP_Widget {
 			$link			=	get_permalink();
 			$date			=	get_the_time('d M Y');
 		  
-			$rt_posts .='<li>';
+			$rt_posts .='<li class="foo">';
 			
 			if ( has_post_thumbnail() && !$show_thumbnails) :
 				$f_thumb 		= 	get_post_thumbnail_id(); 
 				$f_image 		= 	@vt_resize( $f_thumb, '', 50, 50, true );			
-				if($f_image["url"]) $rt_posts .=	'<span class="frame alignleft latest_post_image"><img src="'. $f_image["url"] .'" alt="" /></span>';
+				if($f_image["url"]) $rt_posts .=	'<span class="frame alignleft latest_post_image"><a href="'.$link.'"><img src="'. $f_image["url"] .'" alt="" /></a></span>';
 			endif;
 			
 
@@ -50,7 +50,7 @@ class Latest_Posts extends WP_Widget {
 			$rt_posts .= ($show_excerpt) ? '<p>'.wp_html_excerpt(get_the_excerpt(),$limit).'...</p>' : "" ;
 			$rt_posts .='<div class="clear"></div></li>';
 
-		endwhile;endif;wp_reset_query();
+		endwhile;endif;
 		$rt_posts .= '</ul>';
 
 		echo $before_widget;
@@ -74,13 +74,13 @@ class Latest_Posts extends WP_Widget {
 	}
 
 	function form( $instance ) {
-		$title 			= 	isset($instance['title']) ? esc_attr($instance['title']) : '';
+		$title 				= 	isset($instance['title']) ? esc_attr($instance['title']) : '';
 		$categories 		=	isset($instance['categories']) ? $instance['categories'] : array();
-		$newWidget		= 	$instance['newWidget'];
-		$limit			=	empty($instance['limit']) ? 100 : $instance['limit'];
-		$count			=	empty($instance['count']) ? 5 : $instance['count'];
-		$show_thumbnails	=	$instance['show_thumbnails'];
-		$show_excerpt		=	$instance['show_excerpt'];
+		$newWidget			= 	isset($instance['newWidget']) ? $instance['newWidget'] : "";
+		$limit				=	empty($instance['limit']) ? 100 : $instance['limit'];
+		$count				=	empty($instance['count']) ? 5 : $instance['count'];
+		$show_thumbnails	=	isset($instance['show_thumbnails']) ? $instance['show_thumbnails'] : "";
+		$show_excerpt		=	isset($instance['show_excerpt']) ? $instance['show_excerpt']: "";
 		
 		// Categories
 		$rt_getcat = RTTheme::rt_get_categories();

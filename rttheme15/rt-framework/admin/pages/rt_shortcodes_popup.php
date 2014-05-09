@@ -694,127 +694,127 @@ $button_text= "Button Text";
 						
 				
 	<div id="button-1-1">
-		<a class="button small default">Small Button</a>
+		<a href="" class="button small default">Small Button</a>
 	</div>
 
 	<div id="button-1-2">
-		<a class="button medium default">Medium Button</a>
+		<a href="" class="button medium default">Medium Button</a>
 	</div>
 	
 	<div id="button-1-3">
-		<a class="button big default">Big Button</a>		
+		<a href="" class="button big default">Big Button</a>		
 	</div>
 
 	<div id="button-1-4">
-		<a class="button small default"><span class="mail dark">Mail Button</span></a>		
+		<a href="" class="button small default"><span class="mail dark">Mail Button</span></a>		
 	</div> 
 	
 	
 
 	<div id="button-2-1">
-		<a class="button small orange">Small Button</a>
+		<a href="" class="button small orange">Small Button</a>
 	</div>
 
 	<div id="button-2-2">
-		<a class="button medium orange">Medium Button</a>
+		<a href="" class="button medium orange">Medium Button</a>
 	</div>
 	
 	<div id="button-2-3">
-		<a class="button big orange">Big Button</a>		
+		<a href="" class="button big orange">Big Button</a>		
 	</div>
 
 	<div id="button-2-4">
-		<a class="button small orange"><span class="mail light">Mail Button</span></a>		
+		<a href="" class="button small orange"><span class="mail light">Mail Button</span></a>		
 	</div> 
 	
 
 
 
 	<div id="button-3-1">
-		<a class="button small blue">Small Button</a>
+		<a href="" class="button small blue">Small Button</a>
 	</div>
 
 	<div id="button-3-2">
-		<a class="button medium blue">Medium Button</a>
+		<a href="" class="button medium blue">Medium Button</a>
 	</div>
 	
 	<div id="button-3-3">
-		<a class="button big blue">Big Button</a>		
+		<a href="" class="button big blue">Big Button</a>		
 	</div>
 
 	<div id="button-3-4">
-		<a class="button small blue"><span class="mail light">Mail Button</span></a>		
+		<a href="" class="button small blue"><span class="mail light">Mail Button</span></a>		
 	</div> 
 	
 		  
 	<div id="button-4-1">
-		<a class="button small dark">Small Button</a>
+		<a href="" class="button small dark">Small Button</a>
 	</div>
 
 	<div id="button-4-2">
-		<a class="button medium dark">Medium Button</a>
+		<a href="" class="button medium dark">Medium Button</a>
 	</div>
 	
 	<div id="button-4-3">
-		<a class="button big dark">Big Button</a>		
+		<a href="" class="button big dark">Big Button</a>		
 	</div>
 
 	<div id="button-4-4">
-		<a class="button small dark"><span class="mail light">Mail Button</span></a>		
+		<a href="" class="button small dark"><span class="mail light">Mail Button</span></a>		
 	</div> 
 
 
 
 	<div id="button-5-1">
-		<a class="button small green">Small Button</a>
+		<a href="" class="button small green">Small Button</a>
 	</div>
 
 	<div id="button-5-2">
-		<a class="button medium green">Medium Button</a>
+		<a href="" class="button medium green">Medium Button</a>
 	</div>
 	
 	<div id="button-5-3">
-		<a class="button big green">Big Button</a>		
+		<a href="" class="button big green">Big Button</a>		
 	</div>
 
 	<div id="button-5-4">
-		<a class="button small green"><span class="mail light">Mail Button</span></a>		
+		<a href="" class="button small green"><span class="mail light">Mail Button</span></a>		
 	</div> 
 
 
 
 	<div id="button-7-1">
-		<a class="button small red">Small Button</a>
+		<a href="" class="button small red">Small Button</a>
 	</div>
 
 	<div id="button-7-2">
-		<a class="button medium red">Medium Button</a>
+		<a href="" class="button medium red">Medium Button</a>
 	</div>
 	
 	<div id="button-7-3">
-		<a class="button big red">Big Button</a>		
+		<a href="" class="button big red">Big Button</a>		
 	</div>
 
 	<div id="button-7-4">
-		<a class="button small red"><span class="mail light">Mail Button</span></a>		
+		<a href="" class="button small red"><span class="mail light">Mail Button</span></a>		
 	</div> 
 						 
 
 
 	<div id="button-8-1">
-		<a class="button small light">Small Button</a>
+		<a href="" class="button small light">Small Button</a>
 	</div>
 
 	<div id="button-8-2">
-		<a class="button medium light">Medium Button</a>
+		<a href="" class="button medium light">Medium Button</a>
 	</div>
 	
 	<div id="button-8-3">
-		<a class="button big light">Big Button</a>		
+		<a href="" class="button big light">Big Button</a>		
 	</div>
 
 	<div id="button-8-4">
-		<a class="button small light"><span class="mail dark">Mail Button</span></a>		
+		<a href="" class="button small light"><span class="mail dark">Mail Button</span></a>		
 	</div> 
 	
 

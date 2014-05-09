@@ -1,7 +1,7 @@
 /* ----------------------------------------------------
   
 	File Name: style.css
-	RT-THEME 14
+	RT-THEME 15
 	Created By: Tolga Can
 	http://themeforest.net/user/stmcan
 
@@ -17,7 +17,7 @@
 		font-size:12px;
 		line-height:20px; 
 		position:relative;
-		background:#cfcfcf;
+		background:#E5E5E5;
 		color:#666;
 		padding:0 0 0 1px;
 	}
@@ -74,11 +74,12 @@
 
 	/* background curv image */	
 	.back-curv{
-		background:url(../images/bg.jpg) center top no-repeat;	
-		height:795px;
+		background:url(../images/back-curv.png) center top no-repeat;	
+		height:452px;
 		width:100%;
 		position:relative;
 		z-index:99;
+		top:-280px;
 		min-width:980px;
 		z-index:3;
 	}
@@ -99,15 +100,21 @@
 	#logo{
 		padding:40px 0;
 		width:180px;
-		height: 156px;
-		padding: 0;
 	}
 	
 	/* Text Logo */
-	#logo h1{
+	#logo h1, #mobile_logo h1{
 		font-size:40px;
 	}
-	
+
+	/* hide mobile header */
+	#mobile_header{
+		display: none;
+	    background: #343434;
+	    padding: 20px 0; 
+	    margin:0 auto;		
+	}
+
 	/* sidebar */
 	#sidebar{
 		width:240px;
@@ -124,7 +131,7 @@
 
 	/* sidebar background color */
 	.sidebar_content{
-		background:white;
+		background:#343434;
 		padding:0 30px;
 	}
 
@@ -141,14 +148,14 @@
 	
 	/* content holder */
 	#content{	
-		float:left;
+		float:right;
 		width:700px; 	
 	}
 
 	/* content holder */
 	.content{
 		background:#fff;
-		padding:0 30px;
+		padding:0 30px 1px 30px; 
 	}
 	
 	/* graphic cover for slider */
@@ -215,7 +222,7 @@
 	
 	/* acvtive - expanded items */
 	#navigation a.active{ 
-		background:url(../images/plusminus.png) right -12px no-repeat;
+		background:url(../images/plusminus.png) right -32px no-repeat;
 	}	
 	
 	/* current page items and hover states */
@@ -258,7 +265,7 @@
 	#navigation  ul ul{
 		display:none;
 		margin:10px 0 0 0;
-	}
+	}	
 
 	#navigation ul ul li{
 		margin:0 0 0 0;
@@ -278,9 +285,6 @@
 
 	#navigation ul ul ul li{
 		margin:0 0 0 10px;
-	}
-	.green-text{
-		color:#dcd994;
 	}
 
 /* ----------------------------------------------------
@@ -326,16 +330,11 @@
 
 	/* sidebar content links */
 	.sidebar_content .box a{
-		color:#8f0c18;
-		font-size: 21px;
-		font-weight: bold;
-		font-family: Oswald;
-		line-height: 21px;
-		letter-spacing: 2px;
+		color:#cecece;
 	}
 	
 	.sidebar_content .box a:hover{ 
-		color: #666;		 
+		color:#fff; 
 	}	  
 
 	/* sidebar contact details links */
@@ -406,6 +405,7 @@
 	
 	img.featured{
 		margin:0 0 10px 0;
+		max-width: 100%;
 	}
 	
 	/* Tooltip */ 
@@ -507,10 +507,8 @@
 	/* widget links */
 	.sidebar_content .box ul{
 		background:url(../images/transparent-pixel.png) top repeat-x;
-		margin: 23px 0 23px 0;
+		margin:0 0 20px 0;
 		border:0;
-		text-align: center;
-		text-transform: uppercase;
 	}
 
 	.sidebar_content .box ul li{
@@ -578,7 +576,10 @@
 		background: url(../images/arrow.png) 45px 9px no-repeat;
 	}
 
-
+	/* native widgets */
+	.box.widget_links ul li a, .box.widget_archive  ul li a, .box.widget_categories  ul li a{
+		display:inline-block;
+	}
 /* ----------------------------------------------------
 	CONTACT LISTS
 ------------------------------------------------------- */
@@ -711,6 +712,31 @@
 		opacity:0.3;
 		display:block;
 	}	
+
+
+/* ----------------------------------------------------
+	WPML FLAGS
+------------------------------------------------------- */
+
+	.sidebar_content ul.flags{
+		background:none;
+		display:inline-block;
+		margin:0 0 0 0 !important;
+	}
+	
+	.sidebar_content ul.flags li{
+		background:none;
+		list-style:none;
+		float:left;
+		margin:0 5px 0 0 !important;
+		padding:0;
+	}
+	
+	.sidebar_content .flags img{ 
+		display:block;
+	}
+	
+	.sidebar_content .box.flags{}
 	
 /* ----------------------------------------------------
 	HEADINGS
@@ -724,16 +750,15 @@
 		font-weight:normal;
 		font-family: 'Oswald', arial, serif;
 		line-height:140% !important;
-		color:#910d1a;
-		text-transform:uppercase;
+		color:#e77927;
 	}
 	
 	h1{
-		font-size: 28px; 
+		font-size: 22px; 
 	}
 	
 	h2{
-		font-size: 24px; 	
+		font-size: 20px; 	
 	}
 	
 	h3{
@@ -831,6 +856,8 @@
 		color:#fff !important;
 	}
 
+	.flexslider .slides > li {display: none; -webkit-backface-visibility: hidden;} 
+
 	/* slider buttons*/
 	#numbers{
 		background:#fff;
@@ -840,7 +867,7 @@
 		display:inline-block;
 		position:absolute;
 		right:0;
-		bottom:0px;
+		bottom:0;
 		z-index:999;
 	}
 
@@ -864,6 +891,11 @@
 	}
 
 	/* nivo slider */
+	#nivo-slider{
+		margin: 0 0 24px;
+		top: -4px;
+	}
+
 	.theme-default .nivo-caption .nivo-text a {
 		color:#e77927;
 		background:transparent;
@@ -889,11 +921,20 @@
 		color:#fff !important;
 	}
 
+	.theme-default .nivo-controlNav a { 
+		background: #e77927; 
+	}
+
+	.theme-default .nivo-controlNav a.active {
+		opacity: 0.7;
+	}
+
 /* ----------------------------------------------------
 	IMAGE SLIDER - SHORTCODE
 ------------------------------------------------------- */
 	.frame.slider{
 		margin:0 0 10px;
+		display: block;
 	}
 	
 	.photo_gallery_cycle ul{
@@ -941,11 +982,13 @@
 ------------------------------------------------------- */
 
 	/* columns common style */
-	.box{	
+	.box{
+		margin:0 10px 10px 10px;	
 		display:inline; 
 		float:left;
 		border:0;
 	}
+	
 	/* sidebar box */
 	#sidebar .box{  
 		margin-left:0;
@@ -956,39 +999,7 @@
 		background:none !important;
 		width:180px !important;
 	}
-	#sidebar .full-width{
-		margin-left: -30px;
-		width: 220px;
-		padding: 23px 0px 20px 20px;
-		background-color: #E2E1DD;
-	}
-	#sidebar .full-width h3{
-		font-size:16px;
-		color: #910D1A;	
-	}
-	#sidebar .full-width .mission-text{
-		color: #474747;
-		font-family:Arial, Helvetica, sans-serif;
-		font-size: 11px;
-	}
-	#sidebar .full-width .mission-text a{
-		font-size:11px;
-		font-style:italic;
-	}
-	#sidebar .full-width h3 .black-text{
-		color:black;
-	}
-	#sidebar .member{
-		background-color: #910D1A;
-		padding: 15px 0 15px 0;
-		width: 240px;
-		text-align: center;
-		color: #F8F0C1;
-		font-size: 23px;
-		font-family: oswald;
-		letter-spacing: 1px;
-		
-	}
+	
 	.box h5{
 		line-height:100%;
 	}
@@ -1000,12 +1011,17 @@
 	/* portfolio and product listings*/
 	.box.portfolio, .box.products{
 		overflow:hidden;
+		text-align: center;
 	}
 	
 	/*
 	columns
 	*/
 	 
+	/* full  */
+	.content .box.full-box{
+		width:640px;
+	}	
 	
 	/* two  */
 	.content .box.two{
@@ -1059,6 +1075,20 @@
 		display:block;
 		float:none !important;
 	}
+
+
+	.box .box{margin:0 2%;padding:0;}
+	
+	/* one  */  .box .box.one{width:100% !important;} 
+	/* two  */  .box .box.two{width:48% !important;} 
+	/* three */ .box  .box.three{width:30.66% !important;} 
+	/* Four */ .box .box.four{width:22% !important;} 
+	/* Five */ .box  .box.five{width:16.8% !important;} 
+	/* 2:3 column */ .box .box.two-three, .box .box.two_three{width:65.34% !important;} 
+	/* 3:4 column */ .box .box.three-four, .box .box.three_four{width:74% !important;} 
+	/* 4:5 column */ .box .box.four-five, .box .box.four_five{width:79.2% !important;}	
+
+	.content .box.dynamic_sidebar {margin: 0;} 
 
 /* ----------------------------------------------------
 	PORTFOLIO
@@ -1119,19 +1149,13 @@
 	/* mouse over effect */
 	.imagemask{ 
 		position:relative; 
-		display:inline-block !important;
+		display:inline-block;
 		padding:0;
 		margin:0;
 		outline:0;
-	}
-
-	.imagemask{ 
-		position:relative; 
-		display:inline-block !important;
-		overflow:hidden;
-		padding:0;
-		margin:0;
-	}
+		width: 100%;
+		overflow: hidden;
+	} 
 
 	a.imgeffect,a.imgeffect:hover{
 		text-decoration:none;
@@ -1155,6 +1179,10 @@
 		background:url(../images/link.png) center bottom no-repeat;
 	}	
   
+	.imagemask img{ 
+		max-width: 100%;
+		min-width: 100%;
+	}		
   
 /* ----------------------------------------------------
 	BLOG
@@ -1351,14 +1379,14 @@
 	}   
 	
 	.frame.block{
-		display:inline-block !important;
+		display:block;
 	}
  
  	/* Image Caption Texts */
 	.wp-caption-text{
 		clear:both;
 		display:block;
-		padding:8px 0 0 0 !important;
+		padding:0;
 	}
 	
 	/* aligns */
@@ -1381,7 +1409,19 @@
 		float:left;
 		position:relative;
 	}
-	
+
+	.wp-caption img{ 
+		display: inline;
+		float: none;
+		padding: 5px 0 0;
+	}
+
+	.wp-caption.aligncenter{
+		display: table;
+		margin: auto;
+	 	margin: auto auto 20px;
+	}
+
 	.aligncenter .frame{ 
 		margin:2px 0 0 0 !important;
 	}
@@ -1418,6 +1458,38 @@
 		float:left;
 		padding:0 10px 0 0;
 	}
+
+
+	/* product slider buttons*/
+	#P_numbers{
+		background:#fff;
+		padding:4px 0 0 0;		
+		height:8px;
+		line-height:0;
+		display:inline-block;
+		position:absolute;
+		right:20px; 
+		z-index:999;
+	}
+
+	#P_numbers img{
+		display:block;
+	}
+
+	#P_numbers	a{
+		display:inline-block;
+		background:#dddddd;
+		margin:0 0 0 4px;
+		padding:0;
+	}
+	
+    /* active button style*/
+	#P_numbers a.activeSlide{
+		display:inline-block;
+		background:#e77927;
+		margin:0 0 0 4px;
+		padding:0;
+	}		
 
 /* ----------------------------------------------------
 	PAGING
@@ -1888,7 +1960,7 @@
 		background:url(../images/search.png) left top no-repeat;
 	}
 
-	.search-bar form input{
+	#container .search-bar form input{
 		width:80px !important;
 		padding:0 0 0 10px !important;
 		margin:0 !important;
@@ -1905,7 +1977,7 @@
 		background:transparent !important;
 	}
 	
-	.search-bar form input.searchsubmit{
+	#container .search-bar form input.searchsubmit{
 		width:25px  !important;
 		height:15px  !important;
 		padding:0  !important;
@@ -1913,7 +1985,7 @@
 		display:inline  !important;
 	}
 
-	.search-bar form input:focus,.search-bar form input{
+	#container .search-bar form input:focus,#container .search-bar form input{
 		border:0;-moz-box-shadow: none;-webkit-box-shadow: none;box-shadow: none;	
 	}		
 	
@@ -1967,7 +2039,6 @@
 	ul, ol{
 		list-style: disc;
 		margin:0 0 20px 17px;
-		list-style: url('../images/check.gif');
 	}
 	
 	ul ul, ol ol{
@@ -2125,7 +2196,8 @@
 	/* footer copyright text */	
 	#footer .copyright{
 		font-family: 'Droid Serif', Georgia, "Times New Roman", serif;
-		color:white;
+		font-style: italic;
+		color:#a1a1a1;
 		margin:5px 0 0 0;
 	}	 
 	
@@ -2587,7 +2659,7 @@
 	}
 	
 	/* buttons */
-	form input[type="button"], form input[type="submit"]{  
+	#container form input[type="button"], #container form input[type="submit"]{  
 		text-align:center;
 		display:inline-block !important;
 		font-size:12px;
@@ -2611,14 +2683,14 @@
 		box-shadow: 0px 1px 2px #D1D1D1, inset 0 1px 0 #fff !important; 
 	}
 
-	form input:focus, form select:focus, form textarea:focus{
+	#container form input:focus, #container form select:focus, #container form textarea:focus{
 		border:1px solid #eee;		
 		-moz-box-shadow: 0px 2px 2px #eee;
 		-webkit-box-shadow: 0px 2px 2px #eee;
 		box-shadow: 0px 2px 2px #eee;	
 	}	
 
-	form input[type="button"]:hover, form input[type="submit"]:hover{
+	#container form input[type="button"]:hover, #container form input[type="submit"]:hover{
 		filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#F7F7F7', endColorstr='#D8D8D8');  
 		background: -webkit-gradient(linear, left top, left bottom, from(#F7F7F7), to(#D8D8D8));  
 		background: -moz-linear-gradient(top,   #D8D8D8, #F7F7F7);  
@@ -2980,6 +3052,7 @@
 		margin:0;
 		line-height:100% !important;
 		padding:0 0 30px;
+		font-size:15px;
 	}
 	
 	#comments ol.commentlist{
@@ -3058,7 +3131,7 @@
 		height:24px;
 	}
 	
-	#comments ol.commentlist li .comment-body .comment-author, .cancel-reply a{
+	#comments ol.commentlist li .comment-body .comment-author, #cancel-comment-reply-link{
 		padding:5px 3px 3px 6px;
 		margin:0 0 10px 0;
 		font-size:11px;
@@ -3073,7 +3146,7 @@
 		font-style:italic;
 	}
 	
-	#comments ol.commentlist li a,.cancel-reply a{ 
+	#comments ol.commentlist li a,#cancel-comment-reply-link{ 
 		text-decoration:none;
 	}
 	
@@ -3081,7 +3154,7 @@
 		text-decoration:none;
 	}
 	
-	#comments ol.commentlist li .comment-body .comment-meta,.cancel-reply{
+	#comments ol.commentlist li .comment-body .comment-meta,#cancel-comment-reply-link{
 		font-size:11px; 
 		position:relative;
 		float:right;
@@ -3146,7 +3219,7 @@
 		color:#818181;
 	}
 	
-	#comments ol.commentlist li a,.cancel-reply a{
+	#comments ol.commentlist li a,#cancel-comment-reply-link{
 		color:#818181;
 	}
 	
@@ -3158,7 +3231,7 @@
 		color:#9F9F9F;
 	}
 	
-	#comments ol.commentlist li .comment-body .comment-meta,.cancel-reply{
+	#comments ol.commentlist li .comment-body .comment-meta,#cancel-reply{
 		color:#818181;
 	}
 	
@@ -3185,10 +3258,23 @@
 	#comments #commentform p{
 		padding:0 0 10px !important;
 	}
-	
+ 
+	#respond {
+		clear: both;
+		display: block;
+	}
 
+	li.comment #respond {
+		padding: 20px 0 0 0;
+	}
 
+	.form-allowed-tags code{
+		overflow:hidden;
+	}
 
+	.form-allowed-tags code:hover{
+		overflow:auto;
+	}
 
 /* Popular Posts */
 	.popular_posts {
@@ -3288,9 +3374,16 @@
 
 
 
+
+
+
 /* ----------------------------------------------------
 	RED SKIN
 ------------------------------------------------------- */
+/* use the following selectors to customize background color and the curv image 
+body.red-skin{background:#e6e0e0; }
+body.red-skin .back-curv{background:url(../images/back-curv-red.png) center top no-repeat;}
+*/
 body.red-skin .sidebar_top{background:url(../images/skin-red.png) left 0px no-repeat;}
 body.red-skin .sidebar_content{background:#3e0101; }
 body.red-skin .sidebar_bottom{background:url(../images/skin-red.png) left -122px no-repeat;}
@@ -3345,15 +3438,19 @@ body.red-skin .ppy-caption a {color:#ac4f35;}
 /* nivo slider */
 body.red-skin .theme-default .nivo-caption .nivo-text a {color:#ac4f35; background:transparent;}
 body.red-skin .theme-default .nivo-directionNav a { background-color:#ac4f35;color:#fff;}
+body.red-skin .theme-default .nivo-controlNav a { background-color: #ac4f35; }
 body.red-skin .theme-default .nivo-directionNav a:hover , body.red-skin .theme-default .nivo-caption a:hover{ background-color:#C75A3E;color:#fff !important;}
 body.red-skin .theme-default .nivo-caption .nivo-title a:hover{background-color:#ac4f35;color:#fff !important;} 
+
+/* mobile header */
+body.red-skin #mobile_header{background: #3e0101;}
 
 /* ----------------------------------------------------
 	GREEN SKIN
 ------------------------------------------------------- */
-/* you use these selectors to customize background color and the curv image 
-body.red-skin{background:#e6e0e0; }
-body.red-skin .back-curv{background:url(../images/back-curv-red.png) center top no-repeat;}
+/* use the following selectors to customize background color and the curv image 
+body.green-skin{background:#e6e0e0; }
+body.green-skin .back-curv{background:url(../images/back-curv-green.png) center top no-repeat;}
 */
 body.green-skin .sidebar_top{background:url(../images/skin-green.png) left 0px no-repeat;}
 body.green-skin .sidebar_content{background:#1c2701; }
@@ -3396,9 +3493,9 @@ body.green-skin #footer  a:hover{color:#7d8a26;}
 body.green-skin .blog .date {color:#7d8a26;}
 body.green-skin .widget .recent_posts .date{color:#7d8a26;border:1px solid #7d8a26;}
 body.green-skin .sidebar_content .widget .recent_posts .date{background-color:#7d8a26; border:0 !important;}
-body.green-skin 	#navigation a:hover, body.green-skin #navigation li.current_page_item a{color:#686e58;}
-body.green-skin 	#navigation ul a:hover{color:#BEC8A2;}
-body.green-skin 	#navigation ul ul li a{color:#686e58;}
+body.green-skin #navigation a:hover, body.green-skin #navigation li.current_page_item a{color:#686e58;}
+body.green-skin #navigation ul a:hover{color:#BEC8A2;}
+body.green-skin #navigation ul ul li a{color:#686e58;}
 /* popeye slider */
 body.green-skin .ppy-nav a:hover {background-color:#B7CA37;}
 body.green-skin .ppy-caption a {color:#7d8a26;}
@@ -3406,23 +3503,25 @@ body.green-skin .ppy-caption a {color:#7d8a26;}
 /* nivo slider */
 body.green-skin .theme-default .nivo-caption .nivo-text a {color:#BEC8A2; background:transparent;}
 body.green-skin  .theme-default .nivo-directionNav a { background-color:#686e58;color:#fff;}
+body.green-skin .theme-default .nivo-controlNav a { background-color: #686e58; }
 body.green-skin  .theme-default .nivo-directionNav a:hover , body.green-skin .theme-default .nivo-caption a:hover{ background-color:#BEC8A2;color:#fff !important;}
 body.green-skin .theme-default .nivo-caption .nivo-title a:hover{background-color:#686e58;color:#fff !important;} 
 
+/* mobile header */
+body.green-skin #mobile_header{background: #1c2701;}
 
 /* ----------------------------------------------------
 	BLUE SKIN
 -------------------------------------------------------*/
-/* you use these selectors to customize background color and the curv image 
-body.red-skin{background:#e6e0e0; }
-body.red-skin .back-curv{background:url(../images/back-curv-red.png) center top no-repeat;}
+/* use the following selectors to customize background color and the curv image 
+body.blue-skin{background:#e6e0e0; }
+body.blue-skin .back-curv{background:url(../images/back-curv-red.png) center top no-repeat;}
 */
 body.blue-skin .sidebar_top{background:url(../images/skin-blue.png) left 0px no-repeat;}
 body.blue-skin .sidebar_content{background:#0c3348; }
 body.blue-skin .sidebar_bottom{background:url(../images/skin-blue.png) left -122px no-repeat;}
 body.blue-skin .content_top{background:url(../images/skin-blue.png) right 0 no-repeat;}
 body.blue-skin .content_bottom{background:url(../images/skin-blue.png) right -113px no-repeat;}
-*/
 
 body.blue-skin .sidebar_bottom{background:url(../images/skin-blue.png) left -122px no-repeat;}
 body.blue-skin .content_top{background:url(../images/skin-blue.png) right 0 no-repeat;}
@@ -3473,5 +3572,12 @@ body.blue-skin .ppy-caption a {color:#6599bf;}
 /* nivo slider */
 body.blue-skin .theme-default .nivo-caption .nivo-text a {color:#6599bf; background:transparent;}
 body.blue-skin .theme-default .nivo-directionNav a { background-color:#6599bf;color:#fff;}
+body.blue-skin .theme-default .nivo-controlNav a { background-color: #6599bf; }
 body.blue-skin .theme-default .nivo-directionNav a:hover , body.blue-skin .theme-default .nivo-caption a:hover{ background-color:#5886A9;color:#fff !important;}
-body.blue-skin .theme-default .nivo-caption .nivo-title a:hover{background-color:#6599bf;color:#fff !important;} 
+body.blue-skin .theme-default .nivo-caption .nivo-title a:hover{background-color:#6599bf;color:#fff !important;}
+
+/* mobile header */
+body.blue-skin #mobile_header{background: #0c3348;}
+
+
+

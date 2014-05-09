@@ -79,12 +79,12 @@ function rt_breadcrumb(){
 		$term=get_term_by('slug',$term_slug, $taxonomy);
 		
 		//parent terms
-		if ($term -> parent){
+		if (is_object($term) && $term -> parent){
 			echo term_parents($term -> parent,'');	 
 		} 
 
 		//current term
-		if($term->slug) echo  $delimiter."<a href=\"".get_term_link($term->slug,$taxonomy)."\" title=\"". $term->name ."\" >". $term->name ."</a>";
+		if(is_object($term) && $term->slug) echo  $delimiter."<a href=\"".get_term_link($term->slug,$taxonomy)."\" title=\"". $term->name ."\" >". $term->name ."</a>";
 	}
 	
 

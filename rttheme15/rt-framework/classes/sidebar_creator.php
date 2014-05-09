@@ -25,6 +25,7 @@ class RT_Create_Sidebars{
 		
 		//default sidebars	
 		array_push($this->rt_sidebars,array( 
+			"home-page-contents1" => __("Top Home Page Area", 'rt_theme_admin'),
 			"home-page-contents" => __("Widgetized Home Page Area", 'rt_theme_admin'),
 			"left-sidebar-for-homepage" => __("Left Sidebar For Home Page", 'rt_theme_admin'),	
 			"common-sidebar" => __("Common Sidebar", 'rt_theme_admin'),	
@@ -74,7 +75,7 @@ class RT_Create_Sidebars{
 			register_sidebar(array(
 			    'id'=> $sidebar_id,
 			    'name' => $sidebar_name,
-			    'before_widget' => '<div class="box '.$home_page_layout.' column_class widget"><div class="featured">',
+			    'before_widget' => '<div class="box '.$home_page_layout.' column_class widget %2$s"><div class="featured">',
 			    'description' => $sidebar_name,
 			    'after_widget' => '</div></div>  reset ',
 			    'before_title' => '<div class="title"><h4>',
@@ -87,7 +88,7 @@ class RT_Create_Sidebars{
 			register_sidebar(array(
 			    'id'=> $sidebar_id,
 			    'name' => $sidebar_name,
-			    'before_widget' => '<div class="box dynamic_sidebar widget">',
+			    'before_widget' => '<div class="box dynamic_sidebar widget  %2$s">',
 			    'description' => $sidebar_name,
 			    'after_widget' => '</div>',
 			    'before_title' => '<h4>',
@@ -111,7 +112,8 @@ class RT_Create_Sidebars{
 	#
 	function home_page_layout_class($params) {
 		global $widget_num,$home_contents_count;
-		
+		$reset = $column_class = "";
+
 		if($params[0]['id'] == "home-page-contents"){
 			
 			// clear
@@ -211,7 +213,7 @@ class RT_Create_Sidebars{
 		global $post; 
 
 		// Left Sidebar For Home Page
-		if(is_home()) dynamic_sidebar('left-sidebar-for-home-page');
+		if(is_front_page()) dynamic_sidebar('left-sidebar-for-home-page');
 		
 		// Page Sidebar
 		if(is_theme_page()) dynamic_sidebar('sidebar-for-pages');
@@ -293,13 +295,12 @@ class RT_Create_Sidebars{
 		foreach($savedSidebars_IDs as $id){ 
 			
 			//sidebar values
-			$sidebar_name = @$this->savedSidebars[$id];
-			$sidebar_id = str_replace("_sidebar_name", "", $id);
-			$sidebar_pages = @$this->savedSidebars[$sidebar_id.'_pages'];
-			$sidebar_posts = @$this->savedSidebars[$sidebar_id.'_posts'];
-			$sidebar_categories = @$this->savedSidebars[$sidebar_id.'_categories']; 
-			$sidebar_product_categories = @$this->savedSidebars[$sidebar_id.'_productcategories'];		
-		
+			$sidebar_name               = isset($this->savedSidebars[$id]) ? $this->savedSidebars[$id]: "";	
+			$sidebar_id                 = str_replace("_sidebar_name", "", $id);
+			$sidebar_pages              = isset($this->savedSidebars[$sidebar_id.'_pages']) ? $this->savedSidebars[$sidebar_id.'_pages']: "";	
+			$sidebar_posts              = isset($this->savedSidebars[$sidebar_id.'_posts']) ? $this->savedSidebars[$sidebar_id.'_posts']: "";	
+			$sidebar_categories         = isset($this->savedSidebars[$sidebar_id.'_categories']) ? $this->savedSidebars[$sidebar_id.'_categories']: "";	
+			$sidebar_product_categories = isset($this->savedSidebars[$sidebar_id.'_productcategories']) ? $this->savedSidebars[$sidebar_id.'_productcategories'] : "";		
 		
 			//pages
 			if($postType == "pages"){

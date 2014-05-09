@@ -42,22 +42,25 @@ jQuery(document).ajaxSuccess(function(e, xhr, settings) {
 	var widget_id_base 		= 'latest_posts';   // latest posts plugin
 	var widget_id_base_2 	= 'popular_posts';   // popular posts plugin
 	var widget_id_base_3 	= 'recent_posts_gallery';   // recent posts gallery plugin
-
-	if (settings.data){
+    if(settings.data) { 
+	 if(typeof settings.data.search == 'function') {    
+	   if (settings.data){
 		if(settings.data.search('action=save-widget') != -1 && ( settings.data.search('id_base=' + widget_id_base) != -1 || settings.data.search('id_base=' + widget_id_base_2) != -1  || settings.data.search('id_base=' + widget_id_base_3) != -1 ) ) {
-			var str 			= settings.data;
-			var substr   		= str.split('widget-id=');
-			var substr_2 		= substr[1].split('&id_base');
-			var thisWidtedID 	= substr_2[0];
-			
-			jQuery("select[multiple]#widget-"+thisWidtedID+"-categories").asmSelect({
-				addItemTarget	: 'bottom',
-				animate		: true,
-				highlight		: true,
-				removeLabel	:'x'
-			});
+		  var str 			= settings.data;
+		  var substr   		= str.split('widget-id=');
+		  var substr_2 		= substr[1].split('&id_base');
+		  var thisWidtedID 	= substr_2[0];
+		  
+		  jQuery("select[multiple]#widget-"+thisWidtedID+"-categories").asmSelect({
+			  addItemTarget	: 'bottom',
+			  animate		: true,
+			  highlight		: true,
+			  removeLabel	:'x'
+		  });
 		}
-	}
+	   }
+	 }
+    }
 });
 
 
@@ -150,8 +153,6 @@ jQuery(document).ready(function() {
     });
 	
 
-
- 
  
     jQuery(".fontlist").each(function () {
 	 var sind =jQuery(this).val();
@@ -168,17 +169,25 @@ jQuery(document).ready(function() {
 
 		var which_widget = (jQuery(this).attr('id'));
 		var sind =jQuery(this).val();
-		var font_face =jQuery("#"+which_widget+" option:selected").text(); 
-			
-		jQuery(this).parents("table").find("iframe").attr('src',frameworkurl+'?font='+sind+'&system='+system+'&font_face='+font_face+'');
+		var font_face =jQuery("#"+which_widget+" option:selected").text();
+		var familyName= jQuery("#"+which_widget+" option:selected").attr("class");
+			if(familyName){
+				familyName = familyName.split('__');
+				familyName = familyName[0];
+			}else{
+				familyName = "";
+			}
+
+		jQuery(this).parents("table").find("iframe").attr('src',frameworkurl+'?font='+sind+'&system='+system+'&font_face='+font_face+'&family_name='+familyName+'');
 		
 		if(sind){
 		jQuery(this).parents("table").find("iframe").show();
 		}else{
 		  jQuery(this).parents("table").find("iframe").hide();
 		}
-	});
-	 
+	});	 
+
+
 });
 
 

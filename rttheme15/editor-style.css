@@ -441,16 +441,16 @@
 	/* frame and captions common */
 	.frame, .wp-caption{
 		padding:6px;
-		-moz-border-radius:10px;
-		-webkit-border-radius:10px;
-		border-radius:10px; 
 		display:inline-block;
 		position:relative;
 		margin-left:1px; 
-		font-family:Georgia, "Times New Roman", Times, serif;
+		font-family: 'Droid Serif', Georgia, "Times New Roman", serif;
 		font-style:italic; 
 		text-align:center;
-	} 
+		background:#eee;
+		overflow:hidden;
+		max-width: 100%;
+	}   
 	
 	.sidebar .frame{
 		position:relative;
@@ -458,12 +458,17 @@
 		margin:0 0 10px -12px;
 	}
 	
-	/* Image Caption Texts */
+
+	.frame.block{
+		display:block;
+	}
+ 
+ 	/* Image Caption Texts */
 	.wp-caption-text{
 		clear:both;
 		display:block;
-		padding:8px 0 0 0 !important;
-	}
+		padding:0;
+	} 
 	
 	.frame.block{
 		display:inline-block !important;
@@ -505,25 +510,7 @@
 	}
 	
 
-/* ----------------------------------------------------
-	FRAMES, BORDERS, CAPTIONS
-------------------------------------------------------- */
-
-
-	/* frame and captions common */
-	.frame, .wp-caption{
-		background:#fff;
-		-moz-box-shadow: 0 0 2px #E6E6E6;
-		-webkit-box-shadow: 0 0 2px #E6E6E6;
-		box-shadow: 0 0 2px #E6E6E6;
-		border:1px solid #F0F0F0; 
-		text-shadow: 1px 1px 0px #fff;
-		color:#999;
-	} 
-	
-	.frame img, .wp-caption img{
-		border:1px solid #fff; 
-	}
+ 
 	
 	
 /* ----------------------------------------------------

@@ -9,12 +9,14 @@ $GLOBALS['comment'] = $comment;
 	//highlight the author's comments
 	if($comment->user_id == get_the_author_meta('ID')){
 		$author_comment_class="author";
-	}
+	}else{
+    $author_comment_class="";
+  }
 	?>
 		
      <li <?php comment_class(); ?> id="li-comment-<?php comment_ID() ?>">
   
-        <div class="comment-avatar <?php echo $author_comment_class;?>">
+        <div class="comment-avatar <?php echo @$author_comment_class;?>">
           <?php
           if(get_comment_reply_link(array_merge($args, array('depth' => $depth, 'max_depth' => $args['max_depth'])))){
               echo get_avatar($comment,$size=$args['avatar_size']);
@@ -25,7 +27,7 @@ $GLOBALS['comment'] = $comment;
         </div>
         
         
-        <div id="comment-<?php comment_ID(); ?>" class="comment-body <?php echo $author_comment_class;?>">
+        <div id="comment-<?php comment_ID(); ?>" class="comment-body <?php echo @$author_comment_class;?>">
             <div class="comment-author">
                 <span class="author-name"><?php echo get_comment_author_link();?></span> <span class="comment-meta"><a href="<?php echo htmlspecialchars( get_comment_link( $comment->comment_ID ) ) ?>"><?php printf(__('%1$s at %2$s','rt_theme'), get_comment_date(), get_comment_time()) ?></a><?php edit_comment_link(__('(Edit)','rt_theme'),' ','') ?>
                     <?php if($comment_reply_link=get_comment_reply_link(array_merge($args, array('depth' => $depth, 'max_depth' => $args['max_depth'])))):?>

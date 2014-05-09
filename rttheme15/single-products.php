@@ -12,6 +12,10 @@ $taxonomy = 'product_categories';
 //page link
 $link_page = get_permalink(get_option('rttheme_product_list'));
 
+//variables 
+$other_photos = "";
+$photo_count = "";
+
 //category link
 $terms = get_the_terms($post->ID, $taxonomy);
 $i=0;
@@ -43,13 +47,14 @@ get_header();
 		$rt_excel_file_url  = get_post_meta($post->ID, 'rtthemeexcel_file_url', true);
 		$rt_pdf_file_url  	= get_post_meta($post->ID, 'rtthemepdf_file_url', true);
 		$rt_word_file_url  	= get_post_meta($post->ID, 'rtthemeword_file_url', true);
-		$content			= wpautop(do_shortcode(get_the_content()));
-		$title			= get_the_title();
+		$content			= get_the_content();
+		$title				= get_the_title();
 		$order_button		= get_post_meta($post->ID, THEMESLUG.'order_button', true);
 		$order_button_text	= get_post_meta($post->ID, THEMESLUG.'order_button_text', true);
 		$order_button_link	= get_post_meta($post->ID, THEMESLUG.'order_button_link', true);
 		$related_products	= get_post_meta($post->ID, THEMESLUG.'related_products[]', true);
 		$short_desc		= get_post_meta($post->ID, THEMESLUG.'short_description', true);
+	 	$tabbed_page = "";
 
 		//free tabs count
 		$tab_count=3;
@@ -99,12 +104,15 @@ get_header();
 								$w	= 188;
 								$h	= 180;
 								
+								$photo_url = find_image_org_path($photo_url);
+								
 								// Crop
 								if($crop) $crop="true"; else $h=10000;
 								
-								$image_thumb 	= @vt_resize( '', $photo_url, $w, $h, ''.$crop.'' );
+								$image_thumb 		= @vt_resize( '', $photo_url, $w, $h, ''.$crop.'' );
+								$image_big 		= @vt_resize( '', $photo_url, 630, 10000, false );
 								?>
-								<li><a href="<?php echo $photo_url; ?>" title=""><img src="<?php echo $image_thumb['url'];?>" alt="" /></a></li>
+								<li><a href="<?php echo $image_big['url'];?>" title=""><img src="<?php echo $image_thumb['url'];?>" alt="" /></a></li>
 								<?php
 								
 								@$photo_count++;
@@ -197,11 +205,9 @@ get_header();
 		
 		<?php if(@$tabbed_page):?><div class="pane"><?php else:?><div class="box"><?php endif;?> 
 			<div>
-			<?php
-			$content  = str_replace("two-three", "two_three", $content);
-			$content  = str_replace("three-four", "three_four", $content);
-			$content  = str_replace("four-five", "four_five", $content);					
-			echo $content;
+			<?php 
+			echo apply_filters('the_content',$content);
+
 			?></div>
 			<div class="clear"></div>
 		</div>
@@ -213,7 +219,10 @@ get_header();
 		#	
 		for($i=0; $i<$tab_count+1; $i++){ 
 			if (trim(get_post_meta($post->ID, THEMESLUG.'free_tab_'.$i.'_title', true))){
-				echo '<div class="pane">'.wpautop(do_shortcode(get_post_meta($post->ID, THEMESLUG.'free_tab_'.$i.'_content', true))).'<div class="clear"></div></div>';
+
+				echo '<div class="pane">'.apply_filters('the_content',get_post_meta($post->ID, THEMESLUG.'free_tab_'.$i.'_content', true)).'<div class="clear"></div></div>';
+
+				//echo '<div class="pane">'.wpautop(do_shortcode().'<div class="clear"></div></div>';
 			}
 		}
 		?>
@@ -223,10 +232,10 @@ get_header();
 			<div class="pane">
 				<!-- document icons -->
 				<ul class="doc_icons">
-					<?php if($rt_chart_file_url):?><li><a href="<?php echo $rt_chart_file_url; ?>" title="<?php _e('Donwload Charts','rt_theme');?>"><img src="<?php echo THEMEURI; ?>/images/assets/icons/Chart_1.png" alt="<?php _e('Donwload Charts','rt_theme');?>" class="png" /></a></li><?php endif;?>
-					<?php if($rt_excel_file_url):?><li><a href="<?php echo $rt_excel_file_url; ?>" title="<?php _e('Donwload Excel File','rt_theme');?>"><img src="<?php echo THEMEURI; ?>/images/assets/icons/File_Excel.png" alt="<?php _e('Download Excel File','rt_theme');?>" class="png" /></a></li><?php endif;?>
-					<?php if($rt_pdf_file_url):?><li><a href="<?php echo $rt_pdf_file_url; ?>" title="<?php _e('Donwload PDF File','rt_theme');?>" ><img src="<?php echo THEMEURI; ?>/images/assets/icons/File_Pdf.png" alt="<?php _e('Download PDF File','rt_theme');?>" class="png" /></a></li><?php endif;?>
-					<?php if($rt_word_file_url):?><li><a href="<?php echo $rt_word_file_url; ?>" title="<?php _e('Donwload Word File','rt_theme');?>" ><img src="<?php echo THEMEURI; ?>/images/assets/icons/Word.png" alt="<?php _e('Download Word File','rt_theme');?>" class="png" /></a></li><?php endif;?>
+					<?php if($rt_chart_file_url):?><li><a href="<?php echo $rt_chart_file_url; ?>" title="<?php _e('Download Charts','rt_theme');?>"><img src="<?php echo THEMEURI; ?>/images/assets/icons/Chart_1.png" alt="<?php _e('Download Charts','rt_theme');?>" class="png" /></a></li><?php endif;?>
+					<?php if($rt_excel_file_url):?><li><a href="<?php echo $rt_excel_file_url; ?>" title="<?php _e('Download Excel File','rt_theme');?>"><img src="<?php echo THEMEURI; ?>/images/assets/icons/File_Excel.png" alt="<?php _e('Download Excel File','rt_theme');?>" class="png" /></a></li><?php endif;?>
+					<?php if($rt_pdf_file_url):?><li><a href="<?php echo $rt_pdf_file_url; ?>" title="<?php _e('Download PDF File','rt_theme');?>" ><img src="<?php echo THEMEURI; ?>/images/assets/icons/File_Pdf.png" alt="<?php _e('Download PDF File','rt_theme');?>" class="png" /></a></li><?php endif;?>
+					<?php if($rt_word_file_url):?><li><a href="<?php echo $rt_word_file_url; ?>" title="<?php _e('Download Word File','rt_theme');?>" ><img src="<?php echo THEMEURI; ?>/images/assets/icons/Word.png" alt="<?php _e('Download Word File','rt_theme');?>" class="png" /></a></li><?php endif;?>
 				</ul>
 				<!-- document icons -->
 			</div>

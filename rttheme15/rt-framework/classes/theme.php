@@ -18,6 +18,15 @@ class RTThemeSite extends RTTheme {
 		//Loading Theme Styles
 		add_action('init', array(&$this,'load_styles'));
 
+		// Call Google Fonts
+		add_filter('wp_head', array(&$this,'google_fonts'));
+
+		// Call Cusfon Fonts
+		add_filter('wp_head', array(&$this,'cufon_fonts'));
+
+		// Call JavScript Values
+		add_filter('wp_head', array(&$this,'javascript_values'));
+
 		//Flush rewrite rules
 		add_action('init', 'flush_rewrite_rules');
 
@@ -28,42 +37,38 @@ class RTThemeSite extends RTTheme {
 		add_action('init', array(&$this,'rt_modify_posts_per_page'));
 	}  
 
-
 	#
 	# Loading Theme Scripts
 	#
 	
 	function load_scripts(){
-		
-		wp_deregister_script( 'jquery' ); 
-		wp_register_script('jquery', ("http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"), false, '');
+		$home_slider_script = get_option(THEMESLUG.'_home_slider_script');
+
+		wp_enqueue_script('jquery');
 		wp_enqueue_script('jquery-easing', THEMEURI  . '/js/jquery.easing.1.3.js', array('jquery') );
-		wp_enqueue_script('jquery-cycle', THEMEURI  . '/js/jquery.cycle.all.min.js', array('jquery') );
+		if($home_slider_script=="cycle" || $home_slider_script=="")  wp_enqueue_script('jquery-cycle', THEMEURI  . '/js/jquery.cycle.all.min.js', array('jquery') );
 		wp_enqueue_script('jquery-tools', THEMEURI  . '/js/jquery.tools.min.js', array('jquery') );
 		wp_enqueue_script('jquery-prettyphoto', THEMEURI  . '/js/jquery.prettyPhoto.js', array('jquery') );
 		
-		if(get_option( 'rttheme_cufon_fonts')){
+		if(get_option('rttheme_cufon_fonts')){
 			wp_enqueue_script('jquery-cufon-yui', THEMEURI  . '/js/cufon-yui.js', array('jquery') );
 			
 			foreach($this->fonts as $font_file => $font_name){
 				if(get_option('rttheme_cufon_font_file_heading')==$font_file || get_option('rttheme_cufon_font_file_menu')==$font_file ){ 
 					wp_enqueue_script($font_file, THEMEURI  . '/js/fonts/'.$font_file.'.js', array('jquery') );
 				}
-			
 			}	
 		}
 		
 		wp_enqueue_script('jquery-menu-exp', THEMEURI  . '/js/menu_min.js', array('jquery') );
 		wp_enqueue_script('jquery-colortip', THEMEURI  . '/js/colortip-1.0-jquery.js', array('jquery') );
-		wp_enqueue_script('jquery-popeye', THEMEURI  . '/js/jquery.popeye-2.0.4.min.js', array('jquery') );
+		wp_enqueue_script('jquery-popeye', THEMEURI  . '/js/jquery.popeye-2.1.min.js', array('jquery') ); 	   
 
-		wp_enqueue_script('jquery-validate', THEMEURI  . '/js/jquery.validate.js', array('jquery') );
-		wp_enqueue_script('jqueryform', THEMEURI  . '/js/jquery.form.js', array('jquery') );
-	  
-		wp_enqueue_script('jquery-tweet', THEMEURI  . '/js/jquery.tweet.js', array('jquery') );
-		wp_enqueue_script('jquery-flickr', THEMEURI  . '/js/jflickrfeed.min.js', array('jquery') );
-		if(get_option(THEMESLUG.'_home_slider_script')=="nivo") wp_enqueue_script('nivo-slider', THEMEURI  . '/js/jquery.nivo.slider.pack.js', array('jquery') );
-		wp_enqueue_script('rt-theme-scripts', THEMEURI  . '/js/script.js', array('jquery') ); 
+		if($home_slider_script=="nivo") wp_enqueue_script('nivo-slider', THEMEURI  . '/js/jquery.nivo.slider.pack.js', array('jquery') );
+		if($home_slider_script=="flex") wp_enqueue_script('jquery-flexslider', THEMEURI  . '/js/jquery.flexslider-min.js', array('jquery') ); 
+
+		wp_enqueue_script('rt-theme-scripts', THEMEURI  . '/js/script.js', array('jquery'), "", "true" ); 
+
 		wp_enqueue_script( 'jquery' );
 	}
 	
@@ -71,23 +76,37 @@ class RTThemeSite extends RTTheme {
 	# Loading Theme Styles
 	#
 	
-	function load_styles(){ 
+	function load_styles(){
+		global $responsive_design;
 
-		wp_register_style('theme-style',THEMEURI . '/style.css', 1 , false, 'all');
+		$home_slider_script = get_option(THEMESLUG.'_home_slider_script');
+		$responsive_design = get_option(THEMESLUG.'_responsive_design');
+
+		wp_register_style('theme-style',get_bloginfo( 'stylesheet_url' ), 1 , false, 'all');
 		wp_register_style('theme-style-all',THEMEURI . '/css/style.css', 2 , false, 'all');			
 		wp_register_style('prettyPhoto',THEMEURI . '/css/prettyPhoto.css', 4 , false, 'screen');
-		wp_enqueue_style('theme-reset', THEMEURI . '/css/reset.css');
+		wp_enqueue_style('theme-reset', THEMEURI . '/css/reset.css');		
 		
-		wp_enqueue_style('theme-style');
 		wp_enqueue_style('theme-style-all');
-		wp_enqueue_style('theme-style-colors');
 		wp_enqueue_style('prettyPhoto');  
 		wp_enqueue_style('jquery-popeye-style', THEMEURI . '/css/jquery.popeye.style.css');
 		wp_enqueue_style('jquery-popeye', THEMEURI . '/css/jquery.popeye.css');
 		wp_enqueue_style('jquery-colortip', THEMEURI . '/css/colortip-1.0-jquery.css');
+
 		
-		if(get_option(THEMESLUG.'_home_slider_script')=="nivo")  wp_enqueue_style('nivo-slider', THEMEURI . '/css/nivo-slider.css'); 
-		
+		if($home_slider_script=="flex"){
+			wp_enqueue_style('jquery-flex-slider', THEMEURI . '/css/flexslider.css');
+		}  
+
+		if($home_slider_script=="nivo"){
+			wp_enqueue_style('nivo-slider', THEMEURI . '/css/nivo-slider.css'); 
+			wp_enqueue_style('nivo-slider-skin', THEMEURI . '/css/nivo-default/default.css'); 
+		}  		
+
+		if($responsive_design){
+			wp_enqueue_style('theme-responsive-layout', THEMEURI . '/css/responsive.css'); 
+		}
+
 		wp_register_style('theme-ie7',THEMEURI . '/css/ie7.css', 5 , false, 'screen');
 		$GLOBALS['wp_styles']->add_data( 'theme-ie7', 'conditional', 'IE 7' );
 		wp_enqueue_style('theme-ie7');
@@ -95,6 +114,8 @@ class RTThemeSite extends RTTheme {
 		wp_register_style('theme-lte8',THEMEURI . '/css/ie.css', 6 , false, 'screen');
 		$GLOBALS['wp_styles']->add_data( 'theme-lte8', 'conditional', 'lte IE 8' );
 		wp_enqueue_style('theme-lte8');
+		
+		wp_enqueue_style('theme-style');
 
 	}
 
@@ -185,9 +206,12 @@ class RTThemeSite extends RTTheme {
 			foreach(array_unique($google_fonts_array) as $font_file){
 				if($font_file){
 					$font_file=str_replace("&","&amp;",$font_file);
-					echo "\n".'<link href="http://fonts.googleapis.com/css?family='.$font_file.'" rel="stylesheet" type="text/css" />'."\n";
+					echo "\n".'<link href="https://fonts.googleapis.com/css?family='.$font_file.'" rel="stylesheet" type="text/css" />'."\n";
 				}
 			}
+			
+			//droid serif font manual
+			echo "\n".'<link href="https://fonts.googleapis.com/css?family=Droid+Serif:400,400italic&amp;v2" rel="stylesheet" type="text/css" />'."\n";
 			
 			if($rttheme_google_fonts_body){
 				echo '<style type="text/css">	.sidebar_content,.content{font-family:'.$google_fonts[$rttheme_google_fonts_body][0].', arial, serif !important;}</style>'."\n";				
@@ -198,7 +222,7 @@ class RTThemeSite extends RTTheme {
 			}
 			 
 			if($rttheme_google_fonts_menu){
-				echo '<style type="text/css">	#navigation ul > li > a {font-family:'.$google_fonts[$rttheme_google_fonts_menu][0].', arial, serif;}</style>'."\n";	
+				echo '<style type="text/css">	#navigation > ul > li > a {font-family:'.$google_fonts[$rttheme_google_fonts_menu][0].', arial, serif;}</style>'."\n";	
 			}				
 		}
 	}
@@ -246,6 +270,31 @@ class RTThemeSite extends RTTheme {
 		return $content;
 	}
 
+
+	#
+	# Javascript Values
+	#
+	function javascript_values(){
+
+		$rttheme_slider_timeout = get_option('rttheme_slider_timeout') ? get_option('rttheme_slider_timeout'): 8 ;
+		$rttheme_slider_effect = get_option('rttheme_slider_effect') ? get_option('rttheme_slider_effect'): "fade" ;
+		$rttheme_slider_buttons = get_option('rttheme_slider_buttons') ? get_option('rttheme_slider_buttons'): "on" ;		
+		$rttheme_flex_slider_effect = get_option('rttheme_flex_slider_effect') ? get_option('rttheme_flex_slider_effect'): "slide" ;	
+		$rttheme_nivo_slider_effect = get_option('rttheme_nivo_slider_effect') ? get_option('rttheme_nivo_slider_effect'): "random" ;	
+
+		echo '
+		<script type="text/javascript">
+		 /* <![CDATA[ */ 
+		 	var rttheme_template_dir = "'.THEMEURI.'";
+		 	var rttheme_slider_timeout = '.$rttheme_slider_timeout.'*1000;
+		 	var rttheme_slider_effect = "'.$rttheme_slider_effect.'" ;
+		 	var rttheme_slider_buttons = "'.$rttheme_slider_buttons.'" ;  
+		 	var rttheme_flex_slider_effect = "'.$rttheme_flex_slider_effect.'" ; 	 
+		 	var rttheme_nivo_slider_effect = "'.$rttheme_nivo_slider_effect.'" ; 	 
+		/* ]]> */	
+		</script>
+		';
+	}
 }
 
 

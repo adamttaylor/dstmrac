@@ -72,8 +72,14 @@ $layout_values =   array(
 		//keep posts
 		$keep = query_posts($home_page);
 
+		//variables
 		$reset_row_count = 0;
 		$counter = 0;   
+		$reset="";
+
+		//post & page counts
+		$page_count=get_page_count();
+		$post_count=$page_count['post_count'];		
 		
 		if (have_posts() ) : while ( have_posts() ) : the_post();
 		
@@ -109,7 +115,7 @@ $layout_values =   array(
 		#	next item box width
 		#
 		if($keep[$box_counter-1]->ID){
-			$next_item_layout = get_post_meta($keep[$counter+1]->ID, THEMESLUG.'layout_options', true);
+			$next_item_layout =  isset($keep[$counter+1]->ID) ? get_post_meta($keep[$counter+1]->ID, THEMESLUG.'layout_options', true) : 4;
 			
 			if(empty($next_item_layout)) {
 				$next_item_layout  = $box_layout;  
@@ -137,6 +143,12 @@ $layout_values =   array(
 		#
 		$w = $this_layout_values["w"];
 		$h = $this_layout_values["h"]; //OFF
+
+		#
+		#	Fix for responsive version
+		#
+		if($w < 360) $w = 380;
+
 
 		#
 		#	Crop
@@ -180,10 +192,12 @@ $layout_values =   array(
 			<?php endif;?>
 			
 			<div class="featured">
+				<?php if($box_title):?>
 				<div class="title">
-					<!-- box title-->
+					<!-- box title-->					
 					<h4><?php if($custom_link):?><a href="<?php echo $custom_link;?>" title="<?php echo $box_title;?>"><?php endif;?><?php echo $box_title;?><?php if($custom_link):?></a><?php endif;?></h4>					    
 				</div>
+				<?php endif;?>
 
 				<?php
 				if ($custom_link && $custom_link_text):
@@ -194,9 +208,7 @@ $layout_values =   array(
 				?>
 			
 				<!-- text-->
-				<?php  echo wpautop(do_shortcode(get_the_content().$read_more));?>
-				
-
+				<?php  echo apply_filters('the_content',(get_the_content().$read_more));?>				
 			</div>
 		    
 		</div>
@@ -205,8 +217,7 @@ $layout_values =   array(
 		<?php
 		$counter++; 
 		$box_counter++;
-		$post_count=$page_count['post_count'];
-
+  
 		//close row
 		if ($post_count==$counter || $addClass=="last"): 	 
 			echo "<div class=\"clear\"></div>";

@@ -14,26 +14,61 @@ function rt_theme_custom_posts(){
 	#	Permalink slugs for the custom post types
 	#
 	
-	$portfolio_slug			= get_option(THEMESLUG."_portfolio_single_slug"); 	// singular portfolio item
+	$portfolio_slug				= get_option(THEMESLUG."_portfolio_single_slug"); 	// singular portfolio item
 	$portfolio_categories_slug 	= get_option(THEMESLUG."_portfolio_category_slug"); 	// portfolio categories
+	$member_slug				= get_option(THEMESLUG."_member_single_slug"); 	// singular member page
 	$product_slug 				= get_option(THEMESLUG."_product_single_slug"); 		// singular product item
 	$product_categories_slug 	= get_option(THEMESLUG."_product_category_slug");		// product categories 
+	
+	
+	$labels = array(
+		'name' 				=> _x('Member page', 'member', 'rt_theme_admin'),
+		'singular_name' 		=> _x('member', 'member', 'rt_theme_admin'),
+		'add_new' 			=> _x('Add New', 'Member Page', 'rt_theme_admin'),
+		'add_new_item' 		=> __('Add New member page', 'rt_theme_admin'),
+		'edit_item' 			=> __('Edit member page', 'rt_theme_admin'),
+		'new_item' 			=> __('New member page', 'rt_theme_admin'),
+		'view_item' 			=> __('View Member Page', 'rt_theme_admin'),
+		'search_items' 		=> __('Search Member Page', 'rt_theme_admin'),
+		'not_found' 			=>  __('No item found', 'rt_theme_admin'),
+		'not_found_in_trash' 	=> __('No items found in Trash', 'rt_theme_admin'), 
+		'parent_item_colon' 	=> ''
+	);
+	
+	$args = array(
+		'labels' 				=> $labels,
+		'public' 				=> true,
+		'publicly_queryable' 	=> true,
+		'exclude_from_search' 	=> true,
+		'show_ui' 				=> true, 
+		'query_var' 			=> false,
+		'can_export' 			=> true,
+		'show_in_nav_menus' 	=> true,		
+		'capability_type' 		=> 'page',
+		'page-attributes'       => 'true',
+		'menu_position' 		=> null, 
+		'rewrite' 				=> array( 'slug' => $member_slug, 'with_front' => true, 'pages' => true, 'feeds'=>false ),
+		'menu_icon' 			=> THEMEADMINURI .'/images/portfolio-icon.png', // 16px16
+		'supports' 				=> array('title','editor','author','thumbnail','comments','custom-fields')
+	);
+	
+	register_post_type('member',$args);
 	
 	#
 	#	Portfolio
 	#
 	
 	$labels = array(
-		'name' 				=> _x('Portfolio', 'portfolio', 'rt_theme_admin'),
+		'name' 					=> _x('Portfolio Item', 'portfolio', 'rt_theme_admin'),
 		'singular_name' 		=> _x('portfolio', 'portfolio', 'rt_theme_admin'),
-		'add_new' 			=> _x('Add New', 'portfolio item', 'rt_theme_admin'),
-		'add_new_item' 		=> __('Add New portfolio item', 'rt_theme_admin'),
+		'add_new' 				=> _x('Add New', 'portfolio item', 'rt_theme_admin'),
+		'add_new_item' 			=> __('Add New portfolio item', 'rt_theme_admin'),
 		'edit_item' 			=> __('Edit Portfolio Item', 'rt_theme_admin'),
-		'new_item' 			=> __('New Portfolio Item', 'rt_theme_admin'),
+		'new_item' 				=> __('New Portfolio Item', 'rt_theme_admin'),
 		'view_item' 			=> __('View Portfolio Item', 'rt_theme_admin'),
-		'search_items' 		=> __('Search Portfolio Item', 'rt_theme_admin'),
-		'not_found' 			=>  __('No portfolio item found', 'rt_theme_admin'),
-		'not_found_in_trash' 	=> __('No portfolio item found in Trash', 'rt_theme_admin'), 
+		'search_items' 			=> __('Search Portfolio Item', 'rt_theme_admin'),
+		'not_found' 			=> __('No pages found', 'rt_theme_admin'),
+		'not_found_in_trash'	=> __('No pages found in Trash', 'rt_theme_admin'), 
 		'parent_item_colon' 	=> ''
 	);
 	
@@ -42,94 +77,59 @@ function rt_theme_custom_posts(){
 		'public' 				=> true,
 		'publicly_queryable' 	=> true,
 		'exclude_from_search' 	=> false,
-		'show_ui' 			=> true, 
+		'show_ui' 				=> true, 
 		'query_var' 			=> false,
 		'can_export' 			=> true,
 		'show_in_nav_menus' 	=> true,		
 		'capability_type' 		=> 'post',
 		'menu_position' 		=> null, 
-		'rewrite' 			=> array( 'slug' => $portfolio_slug, 'with_front' => true, 'pages' => true, 'feeds'=>false ),
+		'rewrite' 				=> array( 'slug' => $portfolio_slug, 'with_front' => true, 'pages' => true, 'feeds'=>false ),
 		'menu_icon' 			=> THEMEADMINURI .'/images/portfolio-icon.png', // 16px16
-		'supports' 			=> array('title','editor','author','thumbnail','comments'),
-		'capability_type' => 'portfolio',
-		'capabilities' => array(
-				'read_post' => 'read_portfolio',
-				'publish_posts' => 'publish_portfolios',
-				'edit_posts' => 'edit_portfolios',
-				'edit_others_posts' => 'edit_others_portfolios',
-				'delete_posts' => 'delete_portfolios',
-				'delete_others_posts' => 'delete_others_portfolios',
-				'read_private_posts' => 'read_private_portfolios',
-				'edit_post' => 'edit_portfolio',
-				'delete_post' => 'delete_portfolio',
-	
-			)
+		'supports' 				=> array('title','editor','author','comments')
 	);
-	function add_portfolio_caps() {
-		$role = get_role( 'administrator' );
-		
-		$role->add_cap( 'edit_portfolio' ); 
-		$role->add_cap( 'edit_portfolios' ); 
-		$role->add_cap( 'edit_others_portfolios' ); 
-		$role->add_cap( 'publish_portfolios' ); 
-		$role->add_cap( 'read_portfolio' ); 
-		$role->add_cap( 'read_private_portfolios' ); 
-		$role->add_cap( 'delete_portfolio' ); 
-		
-		$role2 = get_role( 'editor' );
-		
-		$role2->add_cap( 'edit_portfolio' ); 
-		$role2->add_cap( 'edit_portfolios' ); 
-		$role2->add_cap( 'edit_others_portfolios' ); 
-		$role2->add_cap( 'publish_portfolios' ); 
-		$role2->add_cap( 'read_portfolio' ); 
-		$role2->add_cap( 'read_private_portfolios' ); 
-		$role2->add_cap( 'delete_portfolio' ); 
-	}
-	add_action( 'admin_init', 'add_portfolio_caps');
 	
 	register_post_type('portfolio',$args);
 	
 	// Portfolio Categories
 	$labels = array(
-		'name' 				=> _x( 'Portfolio Categories', 'taxonomy general name' , 'rt_theme_admin'),
+		'name' 					=> _x( 'Portfolio Categories', 'taxonomy general name' , 'rt_theme_admin'),
 		'singular_name' 		=> _x( 'Portfolio Category', 'taxonomy singular name' , 'rt_theme_admin'),
-		'search_items' 		=>  __( 'Search Portfolio Category' , 'rt_theme_admin'),
+		'search_items' 			=> __( 'Search Portfolio Category' , 'rt_theme_admin'),
 		'all_items' 			=> __( 'All Portfolio Categories' , 'rt_theme_admin'),
 		'parent_item'			=> __( 'Parent Portfolio Category' , 'rt_theme_admin'),
 		'parent_item_colon' 	=> __( 'Parent Portfolio Category:' , 'rt_theme_admin'),
 		'edit_item' 			=> __( 'Edit Portfolio Category' , 'rt_theme_admin'), 
 		'update_item' 			=> __( 'Update Portfolio Category' , 'rt_theme_admin'),
-		'add_new_item' 		=> __( 'Add New Portfolio Category' , 'rt_theme_admin'),
+		'add_new_item' 			=> __( 'Add New Portfolio Category' , 'rt_theme_admin'),
 		'new_item_name' 		=> __( 'New Genre Portfolio Category' , 'rt_theme_admin'),
 	); 	
 	
 	register_taxonomy('portfolio_categories',array('portfolio'), array(
 		'hierarchical' 		=> true,
-		'labels' 				=> $labels,
+		'labels' 			=> $labels,
 		'show_ui' 			=> true,
-		'query_var' 			=> false,
+		'query_var' 		=> false,
 		'_builtin' 			=> false,
-		'paged'				=>true,
+		'paged'				=> true,
 		'rewrite' 			=> array('slug'=>$portfolio_categories_slug,'with_front'=>false),
 	));
 	
 	
 	
-	
+	/*
 	#
 	#	Products
 	#
  
 	$labels = array(
-		'name' 				=> _x('Product', 'product', 'rt_theme_admin'),
+		'name' 					=> _x('Product', 'product', 'rt_theme_admin'),
 		'singular_name' 		=> _x('product', 'product', 'rt_theme_admin'),
-		'add_new' 			=> _x('Add New', 'product item', 'rt_theme_admin'),
-		'add_new_item' 		=> __('Add New Product Item', 'rt_theme_admin'),
+		'add_new' 				=> _x('Add New', 'product item', 'rt_theme_admin'),
+		'add_new_item' 			=> __('Add New Product Item', 'rt_theme_admin'),
 		'edit_item' 			=> __('Edit Product Item', 'rt_theme_admin'),
-		'new_item'			=> __('New Product Item', 'rt_theme_admin'),
+		'new_item'				=> __('New Product Item', 'rt_theme_admin'),
 		'view_item' 			=> __('View Product Item', 'rt_theme_admin'),
-		'search_items' 		=> __('Search Product Item', 'rt_theme_admin'),
+		'search_items' 			=> __('Search Product Item', 'rt_theme_admin'),
 		'not_found' 			=>  __('No Product Item Iound', 'rt_theme_admin'),
 		'not_found_in_trash' 	=> __('No product item found in trash', 'rt_theme_admin'), 
 		'parent_item_colon'	 	=> ''
@@ -151,7 +151,7 @@ function rt_theme_custom_posts(){
 		'supports' => array('title','editor','author')
 	);
 	
-	register_post_type('products',$args);
+	//register_post_type('products',$args);//<--Uncomment to add back products custom post type
 	
 	// Product Categories
 	$labels = array(
@@ -175,7 +175,7 @@ function rt_theme_custom_posts(){
 		'_builtin' => false,
 		'paged'=>true,
 		'rewrite' => array('slug'=>$product_categories_slug,'with_front'=>false),
-	));
+	));*/
 
 
 
@@ -242,4 +242,25 @@ function rt_theme_custom_posts(){
 }
 
 add_action('init','rt_theme_custom_posts',0);
+
+
+#
+# 	add productID column in product post types
+#
+
+if(is_admin()){
+	// ADD NEW COLUMN
+	function ST4_columns_head($defaults) {
+	 $defaults['product-id'] = 'Product ID';
+	 return $defaults;
+	}
+	
+	// SHOW INFO IN THE NEW COLUMN
+	function ST4_columns_content($column_name, $post_ID) { 
+	   echo $post_ID;
+	}
+	
+	add_filter('manage_products_posts_columns', 'ST4_columns_head', 10);
+	add_action('manage_products_posts_custom_column', 'ST4_columns_content', 10, 2);
+}
 ?>

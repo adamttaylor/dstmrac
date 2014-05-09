@@ -1,5 +1,5 @@
 
-.clear{
+.rt-admin-wrapper  .clear{
 	clear: both;
 	display: block;
 	overflow: hidden;
@@ -332,14 +332,14 @@ table{
 }
 
 .question{
-	background:url(../images/question-button.png) bottom ;
+	background:url(../images/question-button.png) bottom no-repeat;
 	width:16px;
 	height:16px;
 	display:block;
 }
 
 .question:hover{
-	background:url(../images/question-button.png) top ;
+	background:url(../images/question-button.png) top  no-repeat;
 	width:16px;
 	height:16px;
 	display:block;
@@ -478,8 +478,7 @@ h4.sub_title{
 
 
 /* slider root element */
-.slider {
-	
+.form_element .slider {
 	background:url(../images/scrollbar.png) left top no-repeat;
 	width:386px;
 	height:27px;
@@ -793,4 +792,34 @@ hr.rt_theme_hr{
 
 .postbox#portfolio_cutom_fields,.postbox#product_custom_fields,.postbox#rt_home_custom_fields,.postbox#rt_slider_custom_fields{
 	background:#fff !important;
+}
+
+
+.column-product-id{width:100px;}
+.warning_shortcode{
+	font-weight:bold;
+	color:#A60101;
+}
+
+
+
+.right-col div.info{
+	padding:20px 10px 20px 60px;
+	position:relative;
+	display:inline-block;
+	-moz-border-radius:4px;
+	-webkit-border-radius:4px;
+	border-radius:4px;
+	-moz-box-shadow: 0 2px 2px #ddd, inset 0 0 0 1px #fff;
+	-webkit-box-shadow: 0 2px 2px #ddd, inset 0 0 0 1px #fff;
+	box-shadow: 0 2px 2px #ddd, inset 0 0 0 1px #fff;
+	text-shadow: 1px 1px 0px #fff;
+	background:#eee;
+	border:1px solid #ddd;
+	color:#777;
+	margin:20px 0 20px 25px;
+	width:440px; 
+	background-image: url(../images/info_rhombus.png);
+	background-position: 10px center;
+	background-repeat:no-repeat;
 }

@@ -2,10 +2,8 @@
 /* 
 * rt-theme nivo slider
 */
-?>
-<?php if(!get_option("rttheme_remove_slider")): ?>
-
-<div class="slider-wrapper theme-default" id="slider"> 
+?> 
+<div class="slider-wrapper theme-default"> 
 	<div id="nivo-slider" class="nivoSlider">
 	
 		<?php
@@ -21,6 +19,8 @@
 		
 		query_posts($slides);
 		$background_images="";
+		$captions="";
+		$custom_link="";
 		
 		if ( have_posts() ) : while ( have_posts() ) : the_post(); 
 			
@@ -42,7 +42,7 @@
 			
 			<?php if($custom_link):?><a href="<?php echo $custom_link; ?>" title="<?php echo $title; ?>"><?php endif;?>
 				<!-- slide image -->
-				<img src="<?php echo $image["url"];?>" alt="<?php echo $nivo_alt; ?>" width="640" height="<?php echo $rttheme_slider_height;?>" title="<?php echo $nivo_title;?>" />
+				<img src="<?php echo $image["url"];?>" alt="<?php echo $nivo_alt; ?>" title="<?php echo $nivo_title;?>" />
 				<!-- /slide image -->
 			<?php if($custom_link):?></a><?php endif;?>
 			
@@ -58,11 +58,14 @@
 				if($custom_link) $captions.='</a>'."\n";
 				$captions.= "</span>\n"; 
 				if($slide_text) $captions.= '<span class="nivo-text">'.$slide_text.'</span>'."\n"; 
-				if($custom_link && $custom_link_text) $captions.='<a href="'.$custom_link.'" title="'.$title.'">'.$custom_link_text.'</a>'."\n"; 
 				$captions.='</div>'."\n";
-	
+			else:
+
+				$captions.="";
+				$captions.='<div id="slide_'.$post->ID.'_caption" class="nivo-html-caption">'."\n";  
+				$captions.='</div>'."\n";
 			endif;
-			?>         
+			?>      
 		 
 		<?php endwhile;endif;?>
  
@@ -75,4 +78,4 @@
 </div> 
 
 <div class="clear"></div>
-<?php endif;wp_reset_query();?> 
+<?php wp_reset_query();?> 

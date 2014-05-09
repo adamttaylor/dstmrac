@@ -25,6 +25,7 @@ function rt_theme_register_shortcode_button($buttons) {
 	array_push($buttons, "", "rt_themeshortcode_2");
 	array_push($buttons, "", "rt_themeshortcode_4"); 
 	array_push($buttons, "|", "rt_themeshortcode_6");
+	array_push($buttons, "", "rt_themeshortcode_13");
 	array_push($buttons, "", "rt_themeshortcode_7");
 	array_push($buttons, "", "rt_themeshortcode_8");
 	array_push($buttons, "", "rt_themeshortcode_9");

@@ -2,10 +2,7 @@
 /* 
 * rt-theme slider
 */
-?>
-<?php if(!get_option("rttheme_remove_slider")): ?>
-
-
+?> 
 <!-- Slider -->	
 <div id="slider">
 	<div id="slider_area" class="cycle">
@@ -72,4 +69,4 @@
 	<?php endif;?>
 </div>
 <div class="clear"></div>
-<?php endif;wp_reset_query();?> 
+<?php wp_reset_query();?> 

@@ -83,22 +83,7 @@ msgstr ""
 
 #. Text in echo
 #: single-products.php:225
-msgid "Donwload Charts"
-msgstr ""
-
-#. Text in echo
-#: single-products.php:226
-msgid "Donwload Excel File"
-msgstr ""
-
-#. Text in echo
-#: single-products.php:227
-msgid "Donwload PDF File"
-msgstr ""
-
-#. Text in echo
-#: single-products.php:228
-msgid "Donwload Word File"
+msgid "Download Charts"
 msgstr ""
 
 #. Text in echo
@@ -118,7 +103,7 @@ msgstr ""
 
 #. Text in echo
 #: comments.php:119
-msgid "Email (will not be published)"
+msgid "Email"
 msgstr ""
 
 #. Text in function

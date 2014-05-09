@@ -16,8 +16,16 @@ jQuery(document).ready(function (){
   	autohide: 0,
 	autostartSpeed: 0
   });
-  $('#slider').prepend('<div class="slideMask"></div>');
+  //Added by Adam Taylor 4/4/2014
+  jQuery('.current-menu-parent > ul').show();
+  jQuery('.current-menu-parent').parents('.sub-menu').show();
+  
 });
+
+/*
+1) Add placeholder to 
+
+*/ 
 
  
 // Home Page Slider  
@@ -35,7 +43,7 @@ jQuery(document).ready(function(){
 	
 		jQuery(slider_area).cycle({ 
 			fx:     rttheme_slider_effect,  // Effect 
-			timeout:  rttheme_slider_timeout,  // Timeout value (ms) = 4 seconds
+			timeout:  6000,//rttheme_slider_timeout,  // Timeout value (ms) = 4 seconds
 			easing: 'backout', 
 			pager:  slider_buttons, 
 			cleartype:  1,
@@ -44,7 +52,8 @@ jQuery(document).ready(function(){
 			pause:           true,     // true to enable "pause on hover"
 			pauseOnPagerHover: true,   // true to pause when hovering over pager link					
 			pagerAnchorBuilder: function(idx) { 
-				return '<a href="#" title=""><img src="'+rttheme_template_dir+'/images/pixel.gif" width="8" heigth="8"></a>'; 
+			
+				return '<a href="#" title=""><img src="/wp-content/themes/rttheme15/images/pixel.gif" width="8" heigth="8"></a>'; 
 			}
 		});
 	}   
@@ -172,7 +181,7 @@ jQuery(document).ready(function() {
 
 
  
-//validate contact form
+/*validate contact form
 jQuery(document).ready(function(){
 
       // show a simple loading indicator
@@ -200,7 +209,7 @@ jQuery(document).ready(function(){
               v.resetForm();
       });
  });
-
+*/
 
 //Slide to top
 jQuery(document).ready(function(){
@@ -245,7 +254,8 @@ jQuery(document).ready(function(){
 
 //RT form field - text back function
 jQuery(document).ready(function() {
-
+jQuery('.sign-in [name=user-name]').attr('placeholder','Username');
+jQuery('.sign-in [name=password]').attr('placeholder','Password');
 var form_inputs=jQuery(".showtextback input[type='text'], .showtextback textarea");
 
 	form_inputs.each(function(){

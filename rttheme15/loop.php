@@ -47,8 +47,8 @@ if ( have_posts() ) : while ( have_posts() ) : the_post();
 			<?php if(get_the_excerpt()):?>
 			<!-- blog text-->
 				<?php
-				if(!empty($post->post_content)): $link=' <a href="'. get_permalink($post->ID) . ' " class="read_more" >'.__('read more →','rt_theme').'</a>';endif;			    
-				echo wpautop(do_shortcode(get_the_excerpt().$link));			
+				if(!empty($post->post_content)): $link=' <a href="'. get_permalink($post->ID) . ' " class="read_more" >'.__('read more →','rt_theme').'</a>';endif;			    				
+				echo apply_filters('the_content',(get_the_excerpt().$link));	
 				?> 
 			<!-- /blog text-->
 			<?php endif;?>

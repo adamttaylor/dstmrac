@@ -14,6 +14,17 @@ $options = array (
 					"desc" => __("You can put url of a ico image that will represent your website's favicon (16px x 16px) ",'rt_theme_admin'),
 					"id" => THEMESLUG."_favicon_url",
 					"type" => "text"),	  
+			
+			array(
+					"name" => __("RESPONSIVE LAYOUT",'rt_theme_admin'),  
+					"id" => THEMESLUG."_responsive_design",
+					"type" => "heading"),
+			array(
+					"name" => __("Responsive Layout Mode",'rt_theme_admin'),
+					"id" => THEMESLUG."_responsive_design",
+					"desc" => __('Turn ON the responsive design mode for mobile devices. ','rt_theme_admin'),	
+					"type" => "checkbox",
+					"default" => "checked"),  			
 
 			array(
 					"name" => __("WIDGETIZED PART OF HOME PAGE",'rt_theme_admin'),
@@ -104,8 +115,57 @@ $options = array (
 					"name" => __("Analytics Code",'rt_theme_admin'),
 					"desc" => __("Paste your google analytics code",'rt_theme_admin'),
 					"id" => THEMESLUG."_google_analytics",
-					"type" => "textarea",					
-					"hr" => "true",		
+					"type" => "textarea",				
+					),
+			array(
+					"name"      => __("UPDATE NOTIFICATIONS",'rt_theme_admin'), 
+					"type"      => "heading"
+					),
+			
+			array(
+					"name"      => __("Close Update Notifications",'rt_theme_admin'),
+					"desc"      => __("Turn OFF this option if you don't want to be informed about theme updates.",'rt_theme_admin'),				
+					"id"        => THEMESLUG."_update_notifications",
+					"type"      => "checkbox",
+					"default"	=> "on"
+					),
+			
+			array(
+					"name" => __("WPML PLUGIN",'rt_theme_admin'), 
+					"type" => "heading"
+					), 
+
+			array(
+					"name" => __("Show Flags",'rt_theme_admin'),
+					"desc" => __("Show WPML plugin's language flags under the logo.",'rt_theme_admin'),				
+					"id" => THEMESLUG."_show_flags",
+					"default" => "checked",
+					"type" => "checkbox",
+					), 			
+
+
+			array(
+					"name"      => __("FREE CODE SPACES",'rt_theme_admin'), 
+					"type"      => "heading"
+					), 
+
+			array(
+					"name" 		=> __("Info",'rt_theme_admin'),
+					"desc" 		=> __("You can place your codes by using the fields below. The input will not be formatted!" ,'rt_theme_admin'),
+					"type" 		=> "info",
+					),
+
+			array(
+					"name"      => __("Space for before &lt;/head&gt;",'rt_theme_admin'),
+					"id"        => THEMESLUG."_space_for_head",
+					"type"      => "textarea",				
+					),
+
+			array(
+					"name"      => __("Space for before &lt;/body&gt;",'rt_theme_admin'),
+					"id"        => THEMESLUG."_space_for_footer",
+					"type"      => "textarea",
+					"hr" 		=> "true"					
 					),			
 ); 
 ?>

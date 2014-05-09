@@ -59,7 +59,7 @@ function get_pagination($range = 7){
 	  for($i = 1; $i <= ($range + 1); $i++){
 		echo "<li";
 		if($i==$paged) echo " class='active'";
-		echo "><a href='" . str_replace('&','&amp;',get_pagenum_link($i)) ."'>$i</a>";
+		echo "><a href='" . get_pagenum_link($i) ."'>$i</a>";
 		echo "</li>\n";
 	  }
 	}
@@ -67,7 +67,7 @@ function get_pagination($range = 7){
 	  for($i = $max_page - $range; $i <= $max_page; $i++){
 		echo "<li";
 		if($i==$paged) echo " class='active'";
-		echo "><a href='" . str_replace('&','&amp;',get_pagenum_link($i)) ."'>$i</a>";
+		echo "><a href='" . get_pagenum_link($i) ."'>$i</a>";
 		echo "</li>\n";
 	  }
 	}
@@ -75,7 +75,7 @@ function get_pagination($range = 7){
 	  for($i = ($paged - ceil($range/2)); $i <= ($paged + ceil(($range/2))); $i++){
 	    echo "<li";
 	    if($i==$paged) echo " class='active'";
-	    echo "><a href='" . str_replace('&','&amp;',get_pagenum_link($i)) ."'>$i</a>";
+	    echo "><a href='" . get_pagenum_link($i) ."'>$i</a>";
 	    echo "</li>\n";
 	  }
 	}
@@ -84,7 +84,7 @@ function get_pagination($range = 7){
 	for($i = 1; $i <= $max_page; $i++){
 	    echo "<li";
 	    if($i==$paged) echo " class=\"active\" ";
-	    echo "><a href='" . str_replace('&','&amp;',get_pagenum_link($i)) ."'>$i</a>";
+	    echo "><a href='" . get_pagenum_link($i) ."'>$i</a>";
 	    echo "</li>\n";
 	}
 	}
@@ -130,8 +130,12 @@ function find_image_org_path($image) {
 	if(is_multisite()){
 		global $blog_id;
 		if (isset($blog_id) && $blog_id > 0) {
-			if(strpos($image,get_bloginfo('wpurl'))!==false){//image is local
-				$the_image_path = get_current_site(1)->path.str_replace(get_blog_option($blog_id,'fileupload_url'),get_blog_option($blog_id,'upload_path'),$image);
+			if(strpos($image,get_bloginfo('wpurl'))!==false){//image is local 
+				if(empty(get_current_site(1)->path)){
+					$the_image_path = get_current_site(1)->path.str_replace(get_blog_option($blog_id,'fileupload_url'),get_blog_option($blog_id,'upload_path'),$image);
+				}else{
+					$the_image_path = $image;
+				}				
 			}else{
 				$the_image_path = $image;
 			}
@@ -140,8 +144,7 @@ function find_image_org_path($image) {
 		}
 	}else{
 		$the_image_path = $image;
-	}
-	
+	} 
 	return $the_image_path;
 }
 
@@ -152,6 +155,27 @@ function find_image_org_path($image) {
 
 function rt_body_class_name($classes) {
 	$classes[] = get_option( THEMESLUG."_style" );
+	$classes[] = get_option( THEMESLUG."_responsive_design" ) ? 'responsive' : '' ;	// responsive	
 	// return the $classes array
 	return $classes;
+}
+
+#
+# returns a post ID from a url
+#
+
+function rt_get_attachment_id_from_src ($image_src) { 
+		global $wpdb; 
+		$query = "SELECT ID FROM {$wpdb->posts} WHERE guid='$image_src'";
+		$id    = $wpdb->get_var($query);
+		return $id; 
+}
+
+#
+# find orginal image url - clean thumbnail extensions
+#
+
+function rt_clean_thumbnail_ext ($image_src) { 
+	$search = '#-\d+x\d+#';  
+	return preg_replace($search, "", $image_src);
 }

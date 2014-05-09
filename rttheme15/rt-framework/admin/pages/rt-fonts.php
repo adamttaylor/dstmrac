@@ -9,10 +9,12 @@
 $font_file="";
 $font_system="";
 $font_face="";
+$font_family="";
 
 if(isset($_GET['font'])) $font_file=$_GET['font'];
 if(isset($_GET['system'])) $font_system=$_GET['system'];
 if(isset($_GET['font_face'])) $font_face=$_GET['font_face'];
+if(isset($_GET['family_name'])) $family_name=$_GET['family_name'];
 
 if($font_file){
 ?>
@@ -22,7 +24,7 @@ if($font_file){
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
-<title><?php echo $tipName;?></title>
+<title><?php echo $family_name;?></title>
 <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js'></script>
 <script type='text/javascript' src='../../../js/cufon-yui.js'></script>
 
@@ -30,7 +32,7 @@ if($font_file){
 
 if($font_system=="google"){
 echo "\n".'<link href="http://fonts.googleapis.com/css?family='.$font_file.'" rel="stylesheet" type="text/css">'."\n";
-echo '<style type="text/css">	#fontdemo {font-family:'.$font_face.', arial, serif;}</style>'."\n";
+echo '<style type="text/css">	#fontdemo {font-family:'.@$family_name.', arial, serif;}</style>'."\n";
 }
 	
 if($font_system=="cufon"){
@@ -79,7 +81,7 @@ body{
 </style>
 </head>
 
-<body class="page">
+<body class="page"> 
 <fieldset><legend>font demo</legend><div id="fontdemo">The quick brown fox jumps over the lazy dog</div> </fieldset>
 </body>
 </html>

@@ -49,7 +49,7 @@ $options = array (
 
 			array(
 					"name" => __("Email",'rt_theme_admin'),
-					"id" => THEMESLUG."_email",
+					"id" => THEMESLUG."_email_contact",
 					"hr" => "true",		
 					"type" => "text"),
 

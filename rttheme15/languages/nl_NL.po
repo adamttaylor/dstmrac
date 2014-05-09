@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: \n"
 "PO-Revision-Date: \n"
-"Last-Translator: Paul Backus <info@pbackus.com>\n"
+"Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 
@@ -89,23 +89,8 @@ msgstr "Website URL:"
 
 #. Text in echo
 #: single-products.php:225
-msgid "Donwload Charts"
+msgid "Download Charts"
 msgstr "Download Kaart"
-
-#. Text in echo
-#: single-products.php:226
-msgid "Donwload Excel File"
-msgstr "Download Excel-bestand"
-
-#. Text in echo
-#: single-products.php:227
-msgid "Donwload PDF File"
-msgstr "Download PDF-bestand"
-
-#. Text in echo
-#: single-products.php:228
-msgid "Donwload Word File"
-msgstr "Download Word-bestand"
 
 #. Text in echo
 #: single-products.php:226
@@ -124,8 +109,8 @@ msgstr "Download Word-bestand"
 
 #. Text in echo
 #: comments.php:119
-msgid "Email (will not be published)"
-msgstr "Emailadres (wordt niet weergegeven)"
+msgid "Email"
+msgstr "Emailadres"
 
 #. Text in function
 #: rt-framework/widgets/recent_posts_gallery.php:1

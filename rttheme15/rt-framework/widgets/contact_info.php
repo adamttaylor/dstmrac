@@ -19,19 +19,19 @@ class Contact_Info extends WP_Widget {
 		extract( $args );
 		
 		$title			=	apply_filters('widget_title', $instance['title']) ;		 
-		$address			=	wpml_t( THEMESLUG , 'Address', $instance['address'] );
-		$phone_1			=	wpml_t( THEMESLUG , 'Phone 1', $instance['phone_1'] ); 
-		$phone_2			=	wpml_t( THEMESLUG , 'Phone 2', $instance['phone_2'] );
-		$fax_1			=	wpml_t( THEMESLUG , 'Fax 1', $instance['fax_1'] ); 
-		$fax_2			=	wpml_t( THEMESLUG , 'Fax 2', $instance['fax_2'] );		
-		$mail_1			=	wpml_t( THEMESLUG , 'Email 1', $instance['mail_1'] );
-		$mail_2			=	wpml_t( THEMESLUG , 'Email 2', $instance['mail_2'] );
-		$support_mail_1	=	wpml_t( THEMESLUG , 'Support Email 1', $instance['support_mail_1'] );
-		$support_mail_2	=	wpml_t( THEMESLUG , 'Support Email 2', $instance['support_mail_2'] );
-		$map_link			=	wpml_t( THEMESLUG , 'Map Link', $instance['map_link'] );
-		$contact_form_link	=	wpml_t( THEMESLUG , 'Contact Form Link', $instance['contact_form_link'] ); 
-		$map_link_text			=	wpml_t( THEMESLUG , 'Map Link Text', $instance['map_link_text'] );
-		$contact_form_link_text	=	wpml_t( THEMESLUG , 'Contact Form Link Text', $instance['contact_form_link_text'] ); 
+		$address			=	isset($instance['address'])  ? wpml_t( THEMESLUG , 'Address', $instance['address'] ) : ""; 
+		$phone_1			=	isset($instance['phone_1'])  ? wpml_t( THEMESLUG , 'Phone 1', $instance['phone_1'] ): "";  
+		$phone_2			=	isset($instance['phone_2'])  ?  wpml_t( THEMESLUG , 'Phone 2', $instance['phone_2'] ): ""; 
+		$fax_1			=	isset($instance['fax_1'])  ? wpml_t( THEMESLUG , 'Fax 1', $instance['fax_1'] ) : ""; 
+		$fax_2			=	isset($instance['fax_2'])  ? wpml_t( THEMESLUG , 'Fax 2', $instance['fax_2'] ) : ""; 
+		$mail_1			=	isset($instance['mail_1'])  ? wpml_t( THEMESLUG , 'Email 1', $instance['mail_1'] ): ""; 
+		$mail_2			=	isset($instance['mail_2'])  ? wpml_t( THEMESLUG , 'Email 2', $instance['mail_2'] ): ""; 
+		$support_mail_1	=	isset($instance['support_mail_1'])  ? wpml_t( THEMESLUG , 'Support Email 1', $instance['support_mail_1'] ): ""; 
+		$support_mail_2	=	isset($instance['support_mail_2'])  ? wpml_t( THEMESLUG , 'Support Email 2', $instance['support_mail_2'] ): ""; 
+		$map_link			=	isset($instance['map_link'])  ? wpml_t( THEMESLUG , 'Map Link', $instance['map_link'] ): ""; 
+		$contact_form_link	=	isset($instance['contact_form_link'])  ? wpml_t( THEMESLUG , 'Contact Form Link', $instance['contact_form_link'] ): ""; 
+		$map_link_text			=	isset($instance['map_link_text'])  ? wpml_t( THEMESLUG , 'Map Link Text', $instance['map_link_text'] ): ""; 
+		$contact_form_link_text	=	isset($instance['contact_form_link_text'])  ? wpml_t( THEMESLUG , 'Contact Form Link Text', $instance['contact_form_link_text'] ): ""; 
 
 
  

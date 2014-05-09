@@ -54,15 +54,23 @@
 					
 					if(isset($customField[ 'name' ])){
 						$field_value = get_post_meta( $post->ID, $this->prefix . $customField[ 'name' ], true );
-					}
-					
-					if(@!$_GET['action']){
-						$field_value = @$customField[ 'default' ];
+					}else{
+						$field_value = "";
+					} 				 
+
+					if( !isset( $_GET['action'] ) && isset( $customField[ 'default' ] ) ) {
+						$field_value = $customField[ 'default' ];
 					} 
 					
-					$id			= $this->prefix . @$customField[ 'name' ];
-					$title		= @$customField[ 'title' ];
-					$description 	= @$customField[ 'description' ]; 
+					$id				= isset( $customField[ 'name' ] ) ? $this->prefix . $customField[ 'name' ] : "";
+					$title			= isset( $customField[ 'title' ] ) ? $customField[ 'title' ] : "";
+					$description   	= isset( $customField[ 'description' ] ) ? $customField[ 'description' ]: ""; 
+					$richEditor 	= isset( $customField[ 'richeditor' ] ) ? $customField[ 'richeditor' ]: "";
+					$help 			= isset( $customField[ 'help' ] ) ? $customField[ 'help' ]: "";
+					$select 		= isset( $customField[ 'select' ] ) ? $customField[ 'select' ]: "";
+					$class 			= isset( $customField[ 'class' ] ) ? $customField[ 'class' ]: "";
+					$font_system 	= isset( $customField[ 'font-system' ] ) ? $customField[ 'font-system' ]: "";
+ 
 			 
 			 
 					// Check capability
@@ -112,7 +120,7 @@
 									echo '	<td class="col2"><div class="form_element">';
 									echo '	<select name="'.$id.'" id="'.$id.'">';
 										
-										if($customField['select']) echo '<option value="">'.$customField['select'].'</option>';
+										if($select) echo '<option value="">'.$select.'</option>';
 										
 										foreach($customField['options'] as $option_value => $option_name){
 										    if ($field_value==$option_value){
@@ -132,6 +140,8 @@
 
  
 								case 'selectmultiple':{
+									$selected  = "";
+									
 									//Multiple Select
 									echo '<table>';
 									echo '    <tr>';
@@ -148,7 +158,7 @@
 									$saved_array=$field_value; 
 						 
 						
-									echo '<select multiple name="'.$id.'" id="'.$id.'" class="multiple '.@$customField['class'].' '.@$customField['font-system'].'"  title="'.__('Select','rt_theme_admin').'">';
+									echo '<select multiple name="'.$id.'" id="'.$id.'" class="multiple '.$class.' '.$font_system.'"  title="'.__('Select','rt_theme_admin').'">';
 								
 										foreach($customField['options'] as $option_value => $option_name){
 											
@@ -157,7 +167,7 @@
 											if(is_array($saved_array)){
 												
 												foreach($saved_array as $a_key => $a_value){
-													if (	$a_value ==  $option_value ){
+													if ( $a_value ==  $option_value ){
 														$selected="selected";
 													}
 													
@@ -388,7 +398,9 @@
 		# 
 		function saveCustomFields( $post_id ) {
 			global $post;
-			if ( !wp_verify_nonce( @$_POST[ $this->settings['slug'].'_wpnonce' ], $this->settings['slug'] ) )
+			$theFields = isset ( $_POST[ $this->settings['slug'].'_wpnonce' ] )  ? $_POST[ $this->settings['slug'].'_wpnonce' ] : "" ;
+
+			if (!wp_verify_nonce( $theFields, $this->settings['slug'] ) )
 				return $post_id;
 			
 			foreach ( $this->customFields as $customField ) {

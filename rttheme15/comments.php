@@ -76,83 +76,65 @@
 
 
 
+
+<?php if ( get_comments_number() > 0) : // Are there comments to navigate through? ?>
+<br /><div class="line"><span class="top">[<?php _e( 'top', 'rt_theme' ); ?>]</span></div>
+<?php endif;?>
+
+<?php  
  
-<?php if ($post->comment_status == 'open') : ?>
-           
-     
-		<div id="respond">
-          <div class="clear"></div>
-          
-		<?php if ( get_option('comment_registration') && !$user_ID ) : ?>
-		<p><a href="<?php echo get_option('siteurl'); ?>/wp-login.php?redirect_to=<?php echo urlencode(get_permalink()); ?>"><?php _e('Log in','rt_theme'); ?></a> <?php _e('to post a comment.','rt_theme'); ?></p>
-		<?php else:?>
-		
-		<?php if ( get_comments_number() > 0) : // Are there comments to navigate through? ?>
-		<br /><div class="line"><span class="top">[<?php _e( 'top', 'rt_theme' ); ?>]</span></div>
-		<?php endif;?>
-		
-          <div class="respond-cont">
-		<h5 id="reply-title"><?php _e('Leave a Reply','rt_theme');?></h5>
-		
-		
-		
-		<div class="clear"></div>
-          
-			
+//text fields
+$commnet_author = ( $commenter['comment_author'] ) ?  esc_attr( $commenter['comment_author'] )  :  __('Name','rt_theme') . ( @$req ? ' *' : '' );
+$commnet_author_email = ( $commenter['comment_author_email'] ) ?  esc_attr( $commenter['comment_author_email'] )  :  __('Email','rt_theme') . ( @$req ? ' *' : '' );
+$comment_author_url = ( $commenter['comment_author_url'] ) ?  esc_attr( $commenter['comment_author_url'] )  :  __('Website','rt_theme');
 
-				<!-- form -->
-				<form action="<?php echo get_option('siteurl'); ?>/wp-comments-post.php" method="post" id="commentform" class="showtextback">
-				<fieldset>
+$fields =  array(
+	'author' => '<li class="comment-form-author">'.
+	            '<input id="author" name="author" class="showtextback" type="text" value="' . $commnet_author . '" size="30" />'.
+	            '</li>',
 
-					<?php if ( $user_ID ) : ?>
-					
-						<p><?php _e('Logged in as','rt_theme'); ?> <a href="<?php echo get_option('siteurl'); ?>/wp-admin/profile.php"><?php echo $user_identity; ?></a>.
-						<a href="<?php echo wp_logout_url(get_permalink()); ?>" title=""><?php _e('Log out','rt_theme'); ?> &raquo;</a></p>
-						
-					<?php else : ?>
-                
-			 					
-					<!-- text fields -->
-					<div class="text-boxes">
-						<ul>
-						<li><label for="author"><?php _e('Name','rt_theme');?></label><input type="text" tabindex="1"  value="" id="author" class="comment_input" name="author"/></li>
-						<li><label for="email-author"><?php _e('Email (will not be published)','rt_theme');?></label><input type="text" tabindex="2"  value="" id="email-author" class="comment_input" name="email"/></li>
-						<li><label for="url"><?php _e('Website','rt_theme');?></label><input type="text" tabindex="3" value="" id="url" class="comment_input last" name="url"/></li>
-						</ul>
-					</div>
-					
-					<?php endif; ?>
-					
-					<!-- textarea -->
-					<div class="message">
-						<ul>
-						<li><label for="comment"><?php _e('Comment','rt_theme');?></label><textarea tabindex="4" class="comment_textarea" rows="10" cols="100%" id="comment" name="comment"></textarea></li>
-						</ul>
-					</div>
-				
-					<!-- submit button -->
-					<input type="submit" value="<?php _e('Submit','rt_theme');?>" tabindex="5" id="submit" class="button comment_submit" name="submit"/>
-					
-					<!-- cancel reply -->
-					<span class="cancel-reply"><?php cancel_comment_reply_link(__("Cancel Reply",'rt_theme')); ?></span> 
-					
-				</fieldset>
-				
-				<p>
-				<?php 
-				comment_id_fields();
-				do_action('comment_form', $post->ID);
-				?></p>
-				
-				</form>
-				<!-- /form -->	
-								
-				
-          </div>  
-            
-		<?php endif;?>
-		</div><!-- #respond -->
-<?php endif; ?>
+	'email' => '<li class="comment-form-email">'.
+	            '<input id="email" name="email" class="showtextback" type="text" value="' . $commnet_author_email . '" size="30" />'.
+	            '</li>',
 
+
+	'url' => '<li class="comment-form-url ">'.
+	            '<input id="url" name="url" class="showtextback" type="text" value="' . $comment_author_url . '" size="30" />'.
+	            '</li>',
+
+
+);
+
+
+
+//text fields actions
+function rt_comment_form_before_fields(){
+	print '<div class="text-boxes"><ul>';
+}
+
+add_action( 'comment_form_before_fields', 'rt_comment_form_before_fields' );
+
+function rt_comment_form_after_fields(){
+	print '</ul></div>';
+}
+
+add_action( 'comment_form_after_fields', 'rt_comment_form_after_fields' );
+
+
+//comment form args
+
+$comments_args = array( 	
+	'comment_field'        => '<div class="text-boxes"><ul><p class="comment-form-comment"><textarea tabindex="4" class="comment_textarea showtextback" rows="10" id="comment" name="comment">'. __('Comment','rt_theme') .' *</textarea></p></ul></div><div class="clear space"></div>',
+	'id_form'              => 'commentform', 
+	'fields'               => apply_filters( 'comment_form_default_fields', $fields ),
+	'id_submit'            => 'submit',
+	'title_reply'          => __( 'Leave a Reply' ,'rt_theme'),
+	'title_reply_to'       => __( 'Leave a Reply to %s' ,'rt_theme'),
+	'cancel_reply_link'    => __( 'Cancel reply' ,'rt_theme'),
+	'label_submit'         => __( 'Post Comment','rt_theme' )
+);
+comment_form( $comments_args, $post->ID );
+
+?> 
 
 </div><!-- #comments -->

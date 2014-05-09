@@ -1,3 +1,13 @@
+	.content{
+		display: block;
+	}
+
+	span.frame,.imagemask, .imagemask img{
+		width: auto;
+		max-width: auto;
+		min-width: auto;
+	}
+
  	/* Layout general*/
 	#container{
 		width:auto;
@@ -39,3 +49,17 @@
 		display:inline !important; 
 	}
  
+	/* coda */
+	.coda-nav ul li a {  padding: 0 4px; font-size:7px;  line-height:2px !important; }
+
+
+	/* framework fixes */
+	.box .five.box{
+		width: 16.7% !important;
+	}
+
+ 
+	.box.dynamic_sidebar.widget.widget_recent_posts_gallery {
+	    position: relative;
+	    z-index: 9999;
+	}	

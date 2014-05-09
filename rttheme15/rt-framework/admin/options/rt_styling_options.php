@@ -16,8 +16,8 @@ $options = array (
 				   "type" => "select"),
 
 			array(
-				   "name" => __("Remove Curvs",'rt_theme_admin'),
-				   "desc" => __("If you would like to remove curvs from the theme design you can turn on this option.",'rt_theme_admin'),
+				   "name" => __("Remove Curves",'rt_theme_admin'),
+				   "desc" => __("If you would like to remove curves from the theme design you can turn on this option.",'rt_theme_admin'),
 				   "id" => THEMESLUG."_remove_curvs",
 				   "hr" => "true",
 				   "type" => "checkbox"),
@@ -59,12 +59,20 @@ $options = array (
 
 			array(
 				   "name" => __("Custom Active Menu Item Font Color ",'rt_theme_admin'),
-				   "id" => THEMESLUG."_menu_font_color_active",
-				   "hr" => "true",
+				   "id" => THEMESLUG."_menu_font_color_active", 
 				   "type" => "colorpicker"),
-			 
-			 			 
-		
+
+			array(
+					"name" 		=> __("MORE CUSTOMIZATION",'rt_theme_admin'), 
+					"type" 		=> "heading"),	
+			
+			array(
+					"name"      => __("Custom CSS Codes",'rt_theme_admin'),
+					"desc"      => __("Paste your css codes. Do not include &lt;style&gt;&lt;/style&gt; tags or any html tag in this field.",'rt_theme_admin'),
+					"id"        => THEMESLUG."_custom_css",
+					"hr"        => "true", 
+					"type"      => "textarea"),
+		 
 );
 
  

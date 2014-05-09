@@ -15,21 +15,21 @@ $portfolio_layout_names	=	array("5"=>"five","4"=>"four","3"=>"three","2"=>"two")
 // Image width and headlines for box sizes
 $layout_values =   array(
 					"5" => array (
-								"w" => 106,
+								"w" => 96,
 								"h" => 100,
 								"box_width" => 132,
 								"t1" => "<h6>",
 								"t2" => "</h6>"					
 							),
 					"4" => array (
-								"w" => 139,
+								"w" => 129,
 								"h" => 100,
 								"box_width" => 165,
 								"t1" => "<h5>",
 								"t2" => "</h5>"	
 							),
 					 "3" => array (
-								"w" => 194,
+								"w" => 184,
 								"h" => 120,
 								"box_width" => 220,
 								"t1" => "<h5>",
@@ -76,7 +76,7 @@ if ( have_posts() ) : while ( have_posts() ) : the_post();
 	
 	//next item box width
 	if($keep[$box_counter-1]->ID){
-		$next_item_layout = get_post_meta($keep[$counter+1]->ID, 'rttheme_layout_options', true);				
+		$next_item_layout = isset($keep[$counter+1]) ? get_post_meta($keep[$counter+1]->ID, 'rttheme_layout_options', true) : 2;				
 		
 		if(empty($next_item_layout)) {
 			$next_item_layout  = $rttheme_portfolio_layout;  
@@ -98,7 +98,8 @@ if ( have_posts() ) : while ( have_posts() ) : the_post();
 	//Thumbnail dimensions
 	$w = $this_layout_values["w"];
 	$h = $this_layout_values["h"]; 
-	
+ 
+
 	// Crop
 	if($crop) $crop="true"; else $h=10000;
 	
