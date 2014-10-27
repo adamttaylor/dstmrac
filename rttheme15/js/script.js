@@ -19,6 +19,8 @@ jQuery(document).ready(function (){
   //Added by Adam Taylor 4/4/2014
   jQuery('.current-menu-parent > ul').show();
   jQuery('.current-menu-parent').parents('.sub-menu').show();
+  jQuery('.logged-in .loglink a').attr('href',jQuery('#LO').html())
+  jQuery('.logged-in .loglink a').html('Log Out')
   
 });
 

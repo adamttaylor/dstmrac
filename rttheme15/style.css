@@ -356,3 +356,7 @@ table.ghost p{
 #mobile_header{
 	background-color:#ffffff;	
 }
+/*Date picker for non html 5 browsers*/
+#ui-datepicker-div{
+	width:200px;	
+}

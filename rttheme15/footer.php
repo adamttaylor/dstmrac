@@ -149,7 +149,8 @@
 				$footer_menu=wp_nav_menu($topmenuVars);
 				echo add_class_first_item($footer_menu);
 				?>
-			<?php endif;?> 
+			<?php endif;?>
+            <?php echo '<span id="LO" style="display:none">'.wp_logout_url( '/' ).'</span>'; ?> 
 			<!-- / footer links -->
 				
 			<!-- copyright text -->
