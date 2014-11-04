@@ -198,6 +198,7 @@ function my_admin_notification_profile_update($userid,$old_user_data) {
 			&& $key != 'closedpostboxes_dashboard' 
 			&& $key != 'metaboxhidden_dashboard'
 			&& $key != 'closedpostboxes_nav-menus'
+			&& $key != 'closedpostboxes_page'
 			&& $key != 'metaboxhidden_page'){
 				$message .= $key.': "'.$ckey.'"   previous( '.$value[0]." )\n";
 			}
